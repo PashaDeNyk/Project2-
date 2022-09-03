@@ -10,18 +10,20 @@
 #include"initialization.h"
 #include"globalvar.h"
 #include"tower.h"
-
 #include"menu.h"
 
 #include"save_and_load.h"
+#include"score.h"
+#include"shop.h"
 
 
-void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4,int& max_count_creeps, int& timerBullet,Creep* creeps,Tower* towers,bool& load)
+void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4,int& max_count_creeps, int& timerBullet,Creep* creeps,Tower* towers,bool& load,bool scoreBuying)
 {
 	ChangedBackground();
+	DrawTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4,towers,load,timerBullet,max_count_creeps,creeps, scoreBuying);
 	DrawCreeps(curpos, mouse_x, mouse_y, mousebtdown, max_count_creeps,creeps);
-	DrawTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4,towers,load,timerBullet,max_count_creeps,creeps);
 	CheckDistance(timerBullet, max_count_creeps, creeps, towers);
+	DrawScore();
 	SDL_RenderPresent(ren);
 	SDL_Delay(1000 / 60);
 	curpos++;
@@ -35,9 +37,9 @@ int main(int argc, char* argv[])
 
 	Creep creeps[25];
 	Tower towers[4];
-
 	initTowerTextures("Tower.png",towers);
 	initCreepTextures("creepsbg.png",creeps);
+	initScore();
 	initShopbgTextures();
 	initShopTextures(towers);
 	initBulletTextures("cannonball.png",towers);
@@ -70,6 +72,8 @@ int main(int argc, char* argv[])
 	int timerBullet = 0;
 
 	bool load = false;
+
+	bool scoreBuying = false;
 
 	SDL_Event ev;
 
@@ -143,8 +147,8 @@ int main(int argc, char* argv[])
 				}
 				case SDL_SCANCODE_F6:
 				{
-					LoadBin(towers);
 					load = true;
+					LoadBin(towers);
 					break;
 				}
 				
@@ -181,7 +185,7 @@ int main(int argc, char* argv[])
 			if (tt % 60 == 0)
 				setCreep(max_count_creeps,creeps);
 
-			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet,creeps,towers,load);
+			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet,creeps,towers,load, scoreBuying);
 		}
 
 	}//isRunning

@@ -1,3 +1,10 @@
 #pragma once
+#include<iostream>
 
-void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creeps);
+void ScoreCheck(int point, bool& scoreBuying);
+
+void initScore();
+
+void ScoreUpdate( int point);
+
+void DrawScore();

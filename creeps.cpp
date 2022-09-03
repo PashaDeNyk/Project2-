@@ -24,17 +24,14 @@ void initCreepTextures(const char filename[],Creep* creeps)
 
 void DestructCreeps(int i, Creep* creeps)
 {
-	if (creeps[i].health <= 0 or creeps[i].xWay > 1000)
+	if (creeps[i].health <= 0  and creeps[i].active or creeps[i].xWay > 1000 )
 	{
 		creeps[i].xAnim = -1;
 		creeps[i].yAnim = -1;
 		creeps[i].xWay = -100;
 		creeps[i].yWay = -100;
 		creeps[i].active = false;
-	}
-	else
-	{
-		creeps[i].active = true;
+		ScoreUpdate(25);
 	}
 }
 
@@ -42,26 +39,24 @@ void setCreep(int& max_count_creeps, Creep* creeps)
 {
 	if (numCreep < 5)
 	{
-		max_count_creeps = 5;
 		creeps[numCreep].xWay = 0;
 		creeps[numCreep].yWay = 270;
 		creeps[numCreep].xAnim = 75;
 		creeps[numCreep].yAnim = 140;
 		creeps[numCreep].health = 100;
-
+		creeps[numCreep].active = true;
 		numCreep++;
 	}
 	if (numCreep == 5)
 		Ctt++;//Задержка
 	if (numCreep > 4 and numCreep < 10 and Ctt == 2)
 	{
-		max_count_creeps = 10;
 		creeps[numCreep].xWay = 0;
 		creeps[numCreep].yWay = 270;
 		creeps[numCreep].xAnim = 75;
 		creeps[numCreep].yAnim = 535;
 		creeps[numCreep].health = 100;
-
+		creeps[numCreep].active = true;
 		numCreep++;
 	}
 }
@@ -71,8 +66,6 @@ void SetWayCreeps(int& x)
 	if (x <= 1300)
 		x++;
 }
-
-
 
 void HealthCreep(int i, Creep* creeps)
 {
@@ -103,9 +96,19 @@ void AnimationCreeps(int& curpos, int i, Creep* creeps)
 	creeps[i].anim = { xAnim,creeps[i].yAnim,42,84 };//Откуда брать кусочек картинки
 }
 
+void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creeps)
+{
+	/*position*/if (mousebtdown == true and mouse_x >= creeps[i].xWay and mouse_x <= creeps[i].xWay + 42 and mouse_y >= creeps[i].yWay and mouse_y <= creeps[i].yWay + 84)
+		/*health*/if (creeps[i].health > 0)
+		{
+			creeps[i].health = creeps[i].health - 50;
+			mousebtdown = false;
+		}
+}
+
 void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown,int& max_count_creeps,Creep* creeps)
 {
-	for (int i = 0; i < max_count_creeps; i++)
+	for (int i = 0; i < numCreep; i++)
 	{
 		AnimationCreeps(curpos, i, creeps);
 		SetWayCreeps(creeps[i].xWay); 

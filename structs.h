@@ -30,6 +30,7 @@ struct Creep
 	int xWay, yWay;
 	bool active;
 	bool inZone;
+	bool score;
 };
 
 struct Tower
@@ -42,7 +43,7 @@ struct Tower
 
 	int rad;
 
-	int lock;
+	int lock = 101;
 
 	SDL_Texture* shot_tex;
 	SDL_Rect shot_anim;
@@ -93,4 +94,5 @@ struct Score
 {
 	Texture textures;
 	SDL_Rect drawRect;
+	int point;
 };
