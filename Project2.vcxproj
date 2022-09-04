@@ -133,6 +133,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="bullet.cpp" />
     <ClCompile Include="creeps.cpp" />
     <ClCompile Include="initialization.cpp" />
     <ClCompile Include="main.cpp" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
+    <ClInclude Include="bullet.h" />
     <ClInclude Include="creeps.h" />
     <ClInclude Include="globalvar.h" />
     <ClInclude Include="initialization.h" />

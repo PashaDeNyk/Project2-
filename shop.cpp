@@ -22,7 +22,7 @@ void initShopbgTextures(const char filename[])
 	shopbg.spawn = { 0,500,1280,220 };
 }
 
-void initShopTextures(const char filename[],Tower* towers)
+void initShopTextures(const char filename[], Tower* towers)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -54,7 +54,7 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 		//Индекс башни для сохранения
 		towers[countTower].index = towers[countTower].index + 1;
 
-		//Параметры пули
+		//место спавна пули
 		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
 		towers[countTower].bullet.w = 20;
@@ -91,8 +91,7 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 
 		towers[countTower].index = towers[countTower].index + 3;
 
-		towers[countTower].bullet.x =
-			towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
+		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
 		towers[countTower].bullet.w = 20;
 		towers[countTower].bullet.h = 20;
@@ -105,7 +104,7 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 }
 
 //Определение места постройки башни
-void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load,Upgrade* up)
+void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, Upgrade* up)
 {
 	if (buy == true)
 	{
@@ -137,7 +136,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 
 			towers[countTower].spawn = { 923,180,150,105 };
 			up[countTower].drawRect = { 1083,265,20,20 };
-			up[countTower].drawRect_level = {1083,235,50,25};
+			up[countTower].drawRect_level = { 1083,235,50,25 };
 			towers[countTower].index = 20;
 
 			setTypeTower(buyType, countTower, towers);

@@ -48,12 +48,22 @@ struct Tower
 	SDL_Texture* shot_tex;
 	SDL_Rect shot_anim;
 	SDL_Rect bullet;
-	int timer;//пока не сделал
 	bool shot_spawn;	
 
 	int dist;
 
 	int damage;
+};
+
+struct Bullet
+{
+	SDL_Texture* tex;
+	SDL_Rect anim;
+	SDL_Rect bullet;
+	bool spawn;
+	float dist;
+	int lock = -1;
+	float rad = 150;
 };
 
 struct Places
