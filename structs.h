@@ -96,3 +96,10 @@ struct Score
 	SDL_Rect drawRect;
 	int point;
 };
+
+struct Price
+{
+	Texture textures;
+	SDL_Rect drawRect;
+	int cost;
+};

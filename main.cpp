@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
 	initShopbgTextures();
 	initShopTextures(towers);
 	initBulletTextures("cannonball.png",towers);
+	initPrice();
 
 	int tt = 59;
 	int mouse_x = 0, mouse_y = 0;

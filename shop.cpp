@@ -4,10 +4,13 @@
 #include"structs.h"
 #include"background.h"
 #include"score.h"
+#include"menu.h"
+
 
 Shop shop[3];
 Shopbg shopbg;
 Places place;
+Price price[3];
 
 bool buy = false;
 int buyType = 0;
@@ -37,16 +40,6 @@ void SetShop()
 
 	shop[2].anim = { 355,0,150,105 };
 	shop[2].spawn = { 500,550,100,100 };
-}
-
-void DrawShop()
-{
-	SDL_RenderCopy(ren, shopbg.tex, &shopbg.anim, &shopbg.spawn);
-	SetShop();
-	for (int i = 0; i < 3; i++)
-	{
-		SDL_RenderCopy(ren, shop[i].tex, &shop[i].anim, &shop[i].spawn);
-	}
 }
 
 void setTypeTower(int buyType, int& countTower, Tower* towers)
@@ -287,4 +280,35 @@ void buyingClickTower(int mouse_x, int mouse_y, bool& mousebtdown, bool& scoreBu
 				}
 				scoreBuying = false;
 			}
+}
+
+void initPrice()
+{
+	for (int i = 0, k = 100, x = 100; i < 3; i++, k += 100, x += 200)
+	{
+		price[i].cost = k;
+		price[i].drawRect = { x,660,100,35 };
+		char cost[10];
+		sprintf_s(cost, "%i", price[i].cost);
+		price[i].textures = loadFont(cost, "fonts\\Chava-Regular.ttf", { 0, 0, 200, 255 }, 25);
+	}
+}
+
+void DrawPrice()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		SDL_RenderCopy(ren, price[i].textures.tex, NULL, &price[i].drawRect);
+	}
+}
+
+void DrawShop()
+{
+	SDL_RenderCopy(ren, shopbg.tex, &shopbg.anim, &shopbg.spawn);
+	SetShop();
+	DrawPrice();
+	for (int i = 0; i < 3; i++)
+	{
+		SDL_RenderCopy(ren, shop[i].tex, &shop[i].anim, &shop[i].spawn);
+	}
 }
