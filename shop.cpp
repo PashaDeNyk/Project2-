@@ -15,18 +15,18 @@ Price price[3];
 bool buy = false;
 int buyType = 0;
 
-void initShopbgTextures()
+void initShopbgTextures(const char filename[])
 {
-	shopbg.tex = loadTextureFromFile("shopbg.png", &shopbg.anim);
+	shopbg.tex = loadTextureFromFile(filename, &shopbg.anim);
 	shopbg.anim = { 406,236,150,34 };
 	shopbg.spawn = { 0,500,1280,220 };
 }
 
-void initShopTextures(Tower* towers)
+void initShopTextures(const char filename[],Tower* towers)
 {
 	for (int i = 0; i < 3; i++)
 	{
-		shop[i].tex = loadTextureFromFile("Tower.png", &towers[i].anim);
+		shop[i].tex = loadTextureFromFile(filename, &towers[i].anim);
 	}
 }
 
@@ -105,7 +105,7 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 }
 
 //Определение места постройки башни
-void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load)
+void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load,Upgrade* up)
 {
 	if (buy == true)
 	{
@@ -119,6 +119,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 340,183,150,105 };
+			up[countTower].drawRect = { 500,265,20,20 };
+			up[countTower].drawRect_level = { 500,235,50,25 };
 
 			towers[countTower].index = 10;
 
@@ -134,7 +136,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 923,180,150,105 };
-
+			up[countTower].drawRect = { 1083,265,20,20 };
+			up[countTower].drawRect_level = {1083,235,50,25};
 			towers[countTower].index = 20;
 
 			setTypeTower(buyType, countTower, towers);
@@ -148,7 +151,9 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 128,363,150,105 };
-
+			up[countTower].drawRect = { 288,448,20,20 };
+			up[countTower].drawRect_level = { 288,418,50,25 };
+			//initUpgrade(countTower);
 			towers[countTower].index = 30;
 
 			setTypeTower(buyType, countTower, towers);
@@ -162,6 +167,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 594,363,150,105 };
+			up[countTower].drawRect = { 754,448,20,20 };
+			up[countTower].drawRect_level = { 754,418,50,25 };
 
 			towers[countTower].index = 40;
 

@@ -83,14 +83,16 @@ void CheckDistance(int& timerBullet, int max_count_creeps, Creep* creeps, Tower*
 }
 
 //Чек на занятое место
-void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, int timerBullet, int max_count_creeps, Creep* creeps,bool& scoreBuying)
+void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, int timerBullet, int max_count_creeps, Creep* creeps,bool& scoreBuying,Upgrade* up)
 {
 	for (int i = 0; i < 4; i++)
 	{
 		DrawShop();
 		buyingClickTower(mouse_x, mouse_y, mousebtdown, scoreBuying);
-		buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load);
+		buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load,up);
 		CheckDistance(timerBullet, max_count_creeps, creeps, towers);
+		SDL_SetRenderDrawColor(ren, 0, 0, 180, 255);
+		SDL_RenderFillRect(ren, &up[i].drawRect);
 		//Где(поверхность) | Что(Текстура) | Размер чего-то(NULL если не кусочек) | Где появиться что-то(NULL вся поверхность)
 		SDL_RenderCopy(ren, towers[i].tex, &towers[i].anim, &towers[i].spawn);
 	}

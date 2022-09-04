@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,6 +141,7 @@
     <ClCompile Include="score.cpp" />
     <ClCompile Include="shop.cpp" />
     <ClCompile Include="tower.cpp" />
+    <ClCompile Include="upgrade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="shot.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="tower.h" />
+    <ClInclude Include="upgrade.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -103,3 +103,10 @@ struct Price
 	SDL_Rect drawRect;
 	int cost;
 };
+
+struct Upgrade
+{
+	Texture textures;
+	SDL_Rect drawRect;
+	SDL_Rect drawRect_level;
+};
