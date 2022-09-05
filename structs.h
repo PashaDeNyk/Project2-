@@ -31,6 +31,9 @@ struct Creep
 	bool active;
 	bool inZone;
 	bool score;
+
+	int cher_way;
+	bool cher_bool;
 };
 
 struct Tower
@@ -53,6 +56,8 @@ struct Tower
 	int dist;
 
 	int damage;
+
+	int level;
 };
 
 struct Bullet
@@ -117,6 +122,6 @@ struct Price
 struct Upgrade
 {
 	Texture textures;
+	SDL_Rect button;
 	SDL_Rect drawRect;
-	SDL_Rect drawRect_level;
 };

@@ -118,8 +118,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 340,183,150,105 };
-			up[countTower].drawRect = { 500,265,20,20 };
-			up[countTower].drawRect_level = { 500,235,50,25 };
+			up[countTower].button = { 500,265,20,20 };
+			up[countTower].drawRect = { 500,235,50,25 };
 
 			towers[countTower].index = 10;
 
@@ -135,8 +135,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 923,180,150,105 };
-			up[countTower].drawRect = { 1083,265,20,20 };
-			up[countTower].drawRect_level = { 1083,235,50,25 };
+			up[countTower].button = { 1083,265,20,20 };
+			up[countTower].drawRect = { 1083,235,50,25 };
 			towers[countTower].index = 20;
 
 			setTypeTower(buyType, countTower, towers);
@@ -150,8 +150,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 128,363,150,105 };
-			up[countTower].drawRect = { 288,448,20,20 };
-			up[countTower].drawRect_level = { 288,418,50,25 };
+			up[countTower].button = { 288,448,20,20 };
+			up[countTower].drawRect = { 288,418,50,25 };
 			//initUpgrade(countTower);
 			towers[countTower].index = 30;
 
@@ -166,8 +166,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			buy = false;
 
 			towers[countTower].spawn = { 594,363,150,105 };
-			up[countTower].drawRect = { 754,448,20,20 };
-			up[countTower].drawRect_level = { 754,418,50,25 };
+			up[countTower].button = { 754,448,20,20 };
+			up[countTower].drawRect = { 754,418,50,25 };
 
 			towers[countTower].index = 40;
 

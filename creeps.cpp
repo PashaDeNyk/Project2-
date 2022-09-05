@@ -22,6 +22,26 @@ void initCreepTextures(const char filename[],Creep* creeps)
 	}
 }
 
+//void CherDestruct(int i,Creep* creeps)
+//{
+//	if (creeps[i].active == false)
+//	{
+//		SDL_DestroyTexture(creeps[i].tex);
+//		if (creeps[i].cher_bool == true)
+//		{
+//			creeps[i].cher_bool = false;
+//		}
+//	}
+//}
+//
+//void CherWay(Creep* creeps)
+//{
+//	if (creeps[i].active)
+//	{
+//		creeps[i].cher_way
+//	}
+//}
+
 void DestructCreeps(int i, Creep* creeps)
 {
 	if (creeps[i].health <= 0  and creeps[i].active or creeps[i].xWay > 1000 )

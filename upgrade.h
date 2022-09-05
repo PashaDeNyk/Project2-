@@ -2,6 +2,8 @@
 #include<stdio.h>
 #include"structs.h"
 
-void initUpgradeButton(Tower* tower);
+void initUpgrade(int i, Upgrade* up);
 
-void UpgradeDraw();
+void UpdateUpgrade(int i, Tower* towers, Upgrade* up);
+
+void DrawLevelUpgrade(Upgrade* up);

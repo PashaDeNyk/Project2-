@@ -154,7 +154,6 @@
     <ClInclude Include="save_and_load.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="shop.h" />
-    <ClInclude Include="shot.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="tower.h" />
     <ClInclude Include="upgrade.h" />
