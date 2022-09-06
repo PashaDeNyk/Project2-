@@ -3,8 +3,6 @@
 #include"globalvar.h"
 #include"background.h"
 
-Bullet shot[4];
-
 void initBulletTextures(const char filename[], Bullet* shot)
 {
 	for (int i = 0; i < 4; i++)
