@@ -9,12 +9,14 @@
 #include"creeps.h"
 #include"globalVar.h"
 #include"score.h"
+#include"upgrade.h"
+
 #pragma region CREEPS
 
 int Ctt = 0;
 int numCreep = 0;
 
-void initCreepTextures(const char filename[],Creep* creeps)
+void initCreepTextures(const char filename[], Creep* creeps)
 {
 	for (int i = 0; i < 25; i++)
 	{
@@ -44,7 +46,7 @@ void initCreepTextures(const char filename[],Creep* creeps)
 
 void DestructCreeps(int i, Creep* creeps)
 {
-	if (creeps[i].health <= 0  and creeps[i].active or creeps[i].xWay > 1000 )
+	if (creeps[i].health <= 0 and creeps[i].active or creeps[i].xWay > 1000)
 	{
 		creeps[i].xAnim = -1;
 		creeps[i].yAnim = -1;
@@ -116,30 +118,30 @@ void AnimationCreeps(int& curpos, int i, Creep* creeps)
 	creeps[i].anim = { xAnim,creeps[i].yAnim,42,84 };//Откуда брать кусочек картинки
 }
 
-void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creeps)
+void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creeps, ClickUp& clickUp)
 {
-	/*position*/if (mousebtdown == true and mouse_x >= creeps[i].xWay and mouse_x <= creeps[i].xWay + 42 and mouse_y >= creeps[i].yWay and mouse_y <= creeps[i].yWay + 84)
-		/*health*/if (creeps[i].health > 0)
-		{
-			creeps[i].health = creeps[i].health - 50;
-			mousebtdown = false;
-		}
+	if (creeps[i].health > 0 and mousebtdown == true and mouse_x >= creeps[i].xWay and mouse_x <= creeps[i].xWay + 42 and mouse_y >= creeps[i].yWay and mouse_y <= creeps[i].yWay + 84)
+	{
+		creeps[i].health -= clickUp.damage;
+		mousebtdown = false;
+	}
 }
 
-void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown,int& max_count_creeps,Creep* creeps)
+void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& max_count_creeps, Creep* creeps, ClickUp& clickUp)
 {
 	for (int i = 0; i < numCreep; i++)
 	{
 		AnimationCreeps(curpos, i, creeps);
-		SetWayCreeps(creeps[i].xWay); 
+		SetWayCreeps(creeps[i].xWay);
 		SDL_Rect spawn = { creeps[i].xWay,creeps[i].yWay,42,84 };//Место спавна и размер самой картинки на фоне
-		ClickCreep(i, mouse_x, mouse_y, mousebtdown, creeps);
+		DrawButtonClickUpgrade(clickUp);
+		DrawLevelClickUpgrade(clickUp);
+		ButtonClickUpgrade(mouse_x, mouse_y, mousebtdown, clickUp);
+		ClickCreep(i, mouse_x, mouse_y, mousebtdown, creeps, clickUp);
 		HealthCreep(i, creeps);
-
-		//Где | Что | Размер чего-то | Где появиться что-то
 		SDL_RenderCopy(ren, creeps[i].tex, &creeps[i].anim, &spawn);
 		DestructCreeps(i, creeps);
-		SDL_SetRenderDrawColor(ren,0,255,0,255);
+		SDL_SetRenderDrawColor(ren, 0, 255, 0, 255);
 
 	}
 }

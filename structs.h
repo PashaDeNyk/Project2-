@@ -131,3 +131,13 @@ struct Info
 	Texture textures;
 	SDL_Rect drawRect;
 };
+
+struct ClickUp
+{
+	Texture textures;
+	SDL_Rect button;
+	SDL_Rect drawRect;
+	SDL_Rect lvlRect;
+	int level;
+	int damage;
+};
