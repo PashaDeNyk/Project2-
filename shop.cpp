@@ -5,7 +5,8 @@
 #include"background.h"
 #include"score.h"
 #include"menu.h"
-
+#include"upgrade.h"
+#include"tower.h"
 
 Shop shop[3];
 Shopbg shopbg;
@@ -124,6 +125,8 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 
 			towers[countTower].index = 10;
 
+			CheckLevelTower(countTower, towers);
+			initUpgrade(countTower,up);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -138,8 +141,12 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].spawn = { 923,180,150,105 };
 			up[countTower].button = { 1083,265,20,20 };
 			up[countTower].drawRect = { 1083,225,50,25 };
+			towers[countTower].level = 1;
+
 			towers[countTower].index = 20;
 
+			CheckLevelTower(countTower, towers);
+			initUpgrade(countTower, up);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -153,9 +160,12 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].spawn = { 128,363,150,105 };
 			up[countTower].button = { 288,448,20,20 };
 			up[countTower].drawRect = { 288,408,50,25 };
-			//initUpgrade(countTower);
+			towers[countTower].level = 1;
+			
 			towers[countTower].index = 30;
 
+			CheckLevelTower(countTower, towers);
+			initUpgrade(countTower, up);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -169,19 +179,14 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].spawn = { 594,363,150,105 };
 			up[countTower].button = { 754,448,20,20 };
 			up[countTower].drawRect = { 754,408,50,25 };
+			towers[countTower].level = 1;
 
 			towers[countTower].index = 40;
 
+			CheckLevelTower(countTower,towers);
+			initUpgrade(countTower, up);
 			setTypeTower(buyType, countTower, towers);
 		}
-
-		//Отмена покупки башни(не работает)
-		//if (rightbtdown == true)
-		//{
-		// buyType = 0;
-		// rightbtdown = false;
-		// buy = false;
-		//}
 	}
 
 	if (load)
@@ -251,41 +256,44 @@ void buyingClickTower(int mouse_x, int mouse_y, bool& mousebtdown, bool& scoreBu
 {
 	if (mousebtdown == true and mouse_x >= shop[0].spawn.x and mouse_x <= shop[0].spawn.x + shop[0].spawn.w and mouse_y >= shop[0].spawn.y and mouse_y <= shop[0].spawn.y + shop[0].spawn.h)
 	{
-		ScoreCheck(100, scoreBuying);
+		ScoreCheck(price[0].cost, scoreBuying);
 		if (scoreBuying)
 		{
 			buy = true;
 			buyType = 1;
-			ScoreUpdate(-100);
+			ScoreUpdate(-price[0].cost);
 			mousebtdown = false;
 		}
 		scoreBuying = false;
+		mousebtdown = false;
 	}
 	else
 		if (mousebtdown == true and mouse_x >= shop[1].spawn.x and mouse_x <= shop[1].spawn.x + shop[1].spawn.w and mouse_y >= shop[1].spawn.y and mouse_y <= shop[1].spawn.y + shop[1].spawn.h)
 		{
-			ScoreCheck(200, scoreBuying);
+			ScoreCheck(price[1].cost, scoreBuying);
 			if (scoreBuying)
 			{
 				buy = true;
 				buyType = 2;
-				ScoreUpdate(-200);
+				ScoreUpdate(-price[1].cost);
 				mousebtdown = false;
 			}
 			scoreBuying = false;
+			mousebtdown = false;
 		}
 		else
 			if (mousebtdown == true and mouse_x >= shop[2].spawn.x and mouse_x <= shop[2].spawn.x + shop[2].spawn.w and mouse_y >= shop[2].spawn.y and mouse_y <= shop[2].spawn.y + shop[2].spawn.h)
 			{
-				ScoreCheck(300, scoreBuying);
+				ScoreCheck(price[2].cost, scoreBuying);
 				if (scoreBuying)
 				{
 					buy = true;
 					buyType = 3;
-					ScoreUpdate(-300);
+					ScoreUpdate(-price[2].cost);
 					mousebtdown = false;
 				}
 				scoreBuying = false;
+				mousebtdown = false;
 			}
 }
 

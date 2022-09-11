@@ -13,6 +13,7 @@
 #pragma region MENU
 
 Menu menu[3];
+Info info;
 
 int red = 0;
 int green = 0;
@@ -58,7 +59,20 @@ void MenuDestroy()
 	}
 }
 
-void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps, bool& mousebtdown,bool& isRunning)
+void getInfo()
+{
+	ChangedBackground();
+	SDL_DestroyTexture(info.textures.tex);
+	info.textures = loadFont("Created by Danyukov Pavel", "fonts\\Chava-Regular.ttf", {0,0,180,255}, 25);
+	info.drawRect.y = (720-info.drawRect.h)/2;
+	info.drawRect.w = info.textures.dstrect.w;
+	info.drawRect.h = info.textures.dstrect.h;
+	info.drawRect.x = (1280 - info.drawRect.w) / 2;
+	info.textures.dstrect = info.drawRect;
+	SDL_RenderCopy(ren, info.textures.tex, NULL, &info.textures.dstrect);
+}
+
+void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps, bool& mousebtdown,bool& isRunning,bool& startInfo)
 {
 	for (int i=0;i<3;i++)
 	{
@@ -77,8 +91,14 @@ void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& 
 					mousebtdown = false;
 					printf("CLICK ON START");
 				}
+				if(i==1)
+				{
+					mousebtdown = false;
+					startInfo = true;
+				}
 				if (i == 2)
 				{
+					mousebtdown;
 					isRunning = false;
 				}
 			}
@@ -87,10 +107,10 @@ void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& 
 
 }
 
-void drawMenu(int i, int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps, bool& mousebtdown)
+void drawMenu(int i, int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps,bool& mousebtdown)
 {
 	ChangedBackground();
-	char options[][10] = { "Start","Options","Exit" };
+	char options[][10] = { "Start","Info","Exit" };
 
 	for (int i = 0, y = 200; i < 3; i++, y += 100)
 	{

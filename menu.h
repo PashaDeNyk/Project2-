@@ -5,6 +5,8 @@ Texture loadFont(const char text[], const char fontname[], SDL_Color color, int 
 
 void MenuDestroy();
 
-void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps, bool& mousebtdown,bool& isRunning);
+void getInfo();
+
+void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps, bool& mousebtdown,bool& isRunning, bool& startInfo);
 
 void drawMenu(int i, int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps, bool& mousebtdown);

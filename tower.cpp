@@ -81,6 +81,34 @@ void initTowerTextures(const char filename[], Tower* towers)
 //	}
 //}
 
+void CheckLevelTower(int i,Tower* towers)
+{
+	int lvl = towers[i].level;
+	switch (lvl)
+	{
+	case 1:
+	{
+		towers[i].damage = 25;
+		break;
+	}
+	case 2:
+	{
+		towers[i].damage = 35;
+		break;
+	}
+	case 3:
+	{
+		towers[i].damage = 40;
+		break;
+	}
+	case 4: 
+	{
+		towers[i].damage = 50;
+		break;
+	}
+	}
+}
+
 //Чек на занятое место
 void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, int timerBullet, int max_count_creeps, Creep* creeps,bool& scoreBuying,Upgrade* up,Bullet* shot)
 {
@@ -89,8 +117,10 @@ void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, boo
 		DrawShop();
 		buyingClickTower(mouse_x, mouse_y, mousebtdown, scoreBuying);
 		buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load,up);
+		DrawButtonUpgrade(up);
 		ButtonUpgrade(mouse_x,mouse_y,mousebtdown,towers,up,i);
-		CheckDistance(timerBullet, max_count_creeps, creeps, towers,shot);
+		//CheckDistance(timerBullet, max_count_creeps, creeps, towers,shot);
+		DrawLevelUpgrade(up);
 		//Где(поверхность) | Что(Текстура) | Размер чего-то(NULL если не кусочек) | Где появиться что-то(NULL вся поверхность)
 		SDL_RenderCopy(ren, towers[i].tex, &towers[i].anim, &towers[i].spawn);
 	}

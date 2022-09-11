@@ -2,7 +2,6 @@
 #include"globalvar.h"
 #include"structs.h"
 #include"menu.h"
-int damageClick = 50;
 
 Score score;
 

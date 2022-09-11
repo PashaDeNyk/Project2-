@@ -125,3 +125,9 @@ struct Upgrade
 	SDL_Rect button;
 	SDL_Rect drawRect;
 };
+
+struct Info
+{
+	Texture textures;
+	SDL_Rect drawRect;
+};
