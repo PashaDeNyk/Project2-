@@ -12,14 +12,6 @@
 #pragma region TOWER
 int num = 0;
 
-void initTowerTextures(const char filename[], Tower* towers)
-{
-	for (int i = 0; i < 4; i++)
-	{
-		towers[i].tex = loadTextureFromFile(filename, &towers[i].anim);
-	}
-}
-
 //void initBulletTextures(const char filename[], Tower* towers)
 //{
 //	for (int i = 0; i < 4; i++)
@@ -110,19 +102,16 @@ void CheckLevelTower(int i,Tower* towers)
 }
 
 //Чек на занятое место
-void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, int timerBullet, int max_count_creeps, Creep* creeps,bool& scoreBuying,Upgrade* up,Bullet* shot)
+void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, int timerBullet, int max_count_creeps, Creep* creeps,bool& scoreBuying,Upgrade* up,Bullet* shot,Textures& tex)
 {
 	for (int i = 0; i < 4; i++)
 	{
-		DrawShop();
-		buyingClickTower(mouse_x, mouse_y, mousebtdown, scoreBuying);
-		buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load,up);
 		DrawButtonUpgrade(up);
 		ButtonUpgrade(mouse_x,mouse_y,mousebtdown,towers,up,i);
-		//CheckDistance(timerBullet, max_count_creeps, creeps, towers,shot);
+		CheckDistance(timerBullet, max_count_creeps, creeps, towers,shot);
 		DrawLevelUpgrade(up);
 		//Где(поверхность) | Что(Текстура) | Размер чего-то(NULL если не кусочек) | Где появиться что-то(NULL вся поверхность)
-		SDL_RenderCopy(ren, towers[i].tex, &towers[i].anim, &towers[i].spawn);
+		SDL_RenderCopy(ren, tex.tower, &towers[i].anim, &towers[i].spawn);
 	}
 }
 #pragma endregion

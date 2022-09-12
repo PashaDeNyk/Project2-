@@ -16,34 +16,6 @@
 int Ctt = 0;
 int numCreep = 0;
 
-void initCreepTextures(const char filename[], Creep* creeps)
-{
-	for (int i = 0; i < 25; i++)
-	{
-		creeps[i].tex = loadTextureFromFile(filename, &creeps[i].anim);
-	}
-}
-
-//void CherDestruct(int i,Creep* creeps)
-//{
-//	if (creeps[i].active == false)
-//	{
-//		SDL_DestroyTexture(creeps[i].tex);
-//		if (creeps[i].cher_bool == true)
-//		{
-//			creeps[i].cher_bool = false;
-//		}
-//	}
-//}
-//
-//void CherWay(Creep* creeps)
-//{
-//	if (creeps[i].active)
-//	{
-//		creeps[i].cher_way
-//	}
-//}
-
 void DestructCreeps(int i, Creep* creeps)
 {
 	if (creeps[i].health <= 0 and creeps[i].active or creeps[i].xWay > 1000)
@@ -81,6 +53,7 @@ void setCreep(int& max_count_creeps, Creep* creeps)
 		creeps[numCreep].active = true;
 		numCreep++;
 	}
+	max_count_creeps = numCreep;
 }
 
 void SetWayCreeps(int& x)
@@ -127,7 +100,7 @@ void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creep
 	}
 }
 
-void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& max_count_creeps, Creep* creeps, ClickUp& clickUp)
+void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& max_count_creeps, Creep* creeps, ClickUp& clickUp,Textures& tex)
 {
 	for (int i = 0; i < numCreep; i++)
 	{
@@ -139,10 +112,9 @@ void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& m
 		ButtonClickUpgrade(mouse_x, mouse_y, mousebtdown, clickUp);
 		ClickCreep(i, mouse_x, mouse_y, mousebtdown, creeps, clickUp);
 		HealthCreep(i, creeps);
-		SDL_RenderCopy(ren, creeps[i].tex, &creeps[i].anim, &spawn);
+		SDL_RenderCopy(ren, tex.creep, &creeps[i].anim, &spawn);
 		DestructCreeps(i, creeps);
 		SDL_SetRenderDrawColor(ren, 0, 255, 0, 255);
-
 	}
 }
 #pragma endregion

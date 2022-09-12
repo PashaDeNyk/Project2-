@@ -10,6 +10,14 @@ struct Texture
 	SDL_Rect     dstrect;
 };
 
+struct Textures
+{
+	SDL_Texture* background;
+	SDL_Texture* creep;
+	SDL_Texture* tower;
+	SDL_Texture* shobg;
+};
+
 struct Menu
 {
 	Texture textures;
@@ -24,7 +32,6 @@ struct Background
 
 struct Creep
 {
-	SDL_Texture* tex;
 	SDL_Rect anim;		 int xAnim, yAnim;
 	SDL_Rect damageRect;  SDL_Rect healthRect; int health;
 	int xWay, yWay;
@@ -34,6 +41,18 @@ struct Creep
 
 	int cher_way;
 	bool cher_bool;
+};
+
+struct Bullet
+{
+	SDL_Texture* tex;
+	SDL_Rect anim;
+	SDL_Rect bullet;
+	float x, y;
+	bool spawn;
+	float dist;
+	int lock = -1;
+	float rad = 150;
 };
 
 struct Tower
@@ -50,7 +69,7 @@ struct Tower
 
 	SDL_Texture* shot_tex;
 	SDL_Rect shot_anim;
-	SDL_Rect bullet;
+	Bullet bullet;
 	bool shot_spawn;	
 
 	int dist;
@@ -58,17 +77,6 @@ struct Tower
 	int damage;
 
 	int level;
-};
-
-struct Bullet
-{
-	SDL_Texture* tex;
-	SDL_Rect anim;
-	SDL_Rect bullet;
-	bool spawn;
-	float dist;
-	int lock = -1;
-	float rad = 150;
 };
 
 struct Places
@@ -81,7 +89,6 @@ struct Places
 
 struct Shop
 {
-	SDL_Texture* tex;
 	SDL_Rect spawn;
 	SDL_Rect anim;
 };
@@ -93,23 +100,11 @@ struct Shopbg
 	SDL_Rect spawn;
 };
 
-struct Shot
-{
-	SDL_Texture* tex;
-	SDL_Rect anim;
-
-	SDL_Rect bullet;
-
-	int timer;
-
-	bool spawn;
-};
-
 struct Score
 {
 	Texture textures;
 	SDL_Rect drawRect;
-	int point;
+	int point = 100;
 };
 
 struct Price
@@ -141,3 +136,16 @@ struct ClickUp
 	int level;
 	int damage;
 };
+
+
+//struct Shot
+//{
+//	SDL_Texture* tex;
+//	SDL_Rect anim;
+//
+//	SDL_Rect bullet;
+//
+//	int timer;
+//
+//	bool spawn;
+//};

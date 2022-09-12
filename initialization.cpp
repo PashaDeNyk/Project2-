@@ -6,11 +6,15 @@
 
 #include"structs.h"
 #include"initialization.h"
+#include"background.h"
+
 
 SDL_Window* win = NULL;
 SDL_Renderer* ren = NULL;
 
 int win_width = 1280, win_height = 720;
+
+SDL_Rect rect;
 
 void DeInit(int error)
 {
@@ -69,3 +73,12 @@ void Init()
 	}
 }
 
+void initCreepTextures(const char filename[], Textures& tex)
+{
+		tex.creep = loadTextureFromFile(filename, &rect);
+}
+
+void initTowerTextures(const char filename[], Textures& tex)
+{
+		tex.tower = loadTextureFromFile(filename, &rect);
+}

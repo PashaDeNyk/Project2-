@@ -3,11 +3,11 @@
 
 void initShopbgTextures(const char filename[]);
 
-void initShopTextures(const char filename[],Tower* towers);
+//void initShopTextures(const char filename[],Tower* towers);
 
 void SetShop();
 
-void DrawShop();
+void DrawShop(Textures& tex);
 
 
 void setTypeTower(int buyType, int& countTower, Tower* towers);

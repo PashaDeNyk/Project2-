@@ -17,27 +17,32 @@ int Distance(Creep creep, Tower tower)
 }
 
 //Отрисовка пули если она активна, если нет то она пропадает за задником
-void WayBullet(Creep& creep,Bullet& shot,Tower& tower)
+void WayBullet(Creep& creep, Bullet& shot, Tower& tower)
 {
 	float angle = atan2(creep.yWay - tower.spawn.y, creep.xWay - tower.spawn.x);
 	//if (shot.bullet.x != creep.xWay)
-	shot.bullet.x += (int)cos(angle) * 2;
+	tower.bullet.x += cos(angle) * 2;
 	//if (shot.bullet.y != creep.yWay)
-	shot.bullet.y += (int)sin(angle) * 2;
+	tower.bullet.y += sin(angle) * 2;
+
+	tower.bullet.x = (int)tower.bullet.x;
+	tower.bullet.y = (int)tower.bullet.y;
+
 	//if (Distance(creep, tower) >= tower.dist)
-	if (shot.bullet.x >= creep.xWay and shot.bullet.x <= creep.xWay + 42 and shot.bullet.y >= creep.yWay and shot.bullet.y <= creep.yWay + 84)
+	if (tower.bullet.x >= creep.xWay and tower.bullet.x <= creep.xWay + 42 and tower.bullet.y >= creep.yWay and tower.bullet.y <= creep.yWay + 84)
 	{
 		//Отнимаем хп у крипа
-		shot.bullet.x = (tower.spawn.x + tower.spawn.w / 2);
-		shot.bullet.y = (tower.spawn.y + tower.spawn.h / 2);
+		tower.bullet.bullet.x = (tower.spawn.x + tower.spawn.w / 2);
+		tower.bullet.bullet.y = (tower.spawn.x + tower.spawn.w / 2);
 		creep.health -= 1;
 		shot.lock = -1;
 	}
+
+	SDL_RenderCopy(ren, shot.tex, NULL, &tower.bullet.bullet);
 	//Отрисовываем
-	SDL_RenderCopy(ren, tower.shot_tex, NULL, &tower.bullet);
 }
 
-void CheckDistance(int& timerBullet, int max_count_creeps, Creep* creeps, Tower* towers,Bullet* shot)
+void CheckDistance(int& timerBullet, int max_count_creeps, Creep* creeps, Tower* towers, Bullet* shot)
 {
 	for (int k = 0; k < 4; k++)
 	{
@@ -57,7 +62,7 @@ void CheckDistance(int& timerBullet, int max_count_creeps, Creep* creeps, Tower*
 				}
 				if (shot[k].lock != -1)
 				{
-					WayBullet(creeps[shot[k].lock], shot[k],towers[k]);
+					WayBullet(creeps[shot[k].lock], shot[k], towers[k]);
 				}
 			}
 		}

@@ -23,13 +23,13 @@ void initShopbgTextures(const char filename[])
 	shopbg.spawn = { 0,500,1280,220 };
 }
 
-void initShopTextures(const char filename[], Tower* towers)
-{
-	for (int i = 0; i < 3; i++)
-	{
-		shop[i].tex = loadTextureFromFile(filename, &towers[i].anim);
-	}
-}
+//void initShopTextures(const char filename[], Tower* towers)
+//{
+//	for (int i = 0; i < 3; i++)
+//	{
+//		shop[i].tex = loadTextureFromFile(filename, &towers[i].anim);
+//	}
+//}
 
 void SetShop()
 {
@@ -58,8 +58,6 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 		//место спавна пули
 		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
-		towers[countTower].bullet.w = 20;
-		towers[countTower].bullet.h = 20;
 		towers[countTower].shot_spawn = true;
 
 		buyType = 0;
@@ -76,8 +74,6 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 
 		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
-		towers[countTower].bullet.w = 20;
-		towers[countTower].bullet.h = 20;
 		towers[countTower].shot_spawn = true;
 
 		buyType = 0;
@@ -94,8 +90,6 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 
 		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
-		towers[countTower].bullet.w = 20;
-		towers[countTower].bullet.h = 20;
 		towers[countTower].shot_spawn = true;
 
 		buyType = 0;
@@ -317,13 +311,13 @@ void DrawPrice()
 	}
 }
 
-void DrawShop()
+void DrawShop(Textures& tex)
 {
 	SDL_RenderCopy(ren, shopbg.tex, &shopbg.anim, &shopbg.spawn);
 	SetShop();
 	DrawPrice();
 	for (int i = 0; i < 3; i++)
 	{
-		SDL_RenderCopy(ren, shop[i].tex, &shop[i].anim, &shop[i].spawn);
+		SDL_RenderCopy(ren, tex.tower, &shop[i].anim, &shop[i].spawn);
 	}
 }

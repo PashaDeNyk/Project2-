@@ -19,14 +19,26 @@
 #include"upgrade.h"
 
 
-void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, int& max_count_creeps, int& timerBullet, Creep* creeps, Tower* towers, bool& load, bool scoreBuying, Upgrade* up, Bullet* shot, ClickUp& clickUp)
+void MissClicks(bool& mousebtdown)
+{
+	if (mousebtdown)
+	{
+		mousebtdown = false;
+	}
+}
+
+void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, int& max_count_creeps, int& timerBullet, Creep* creeps, Tower* towers, bool& load, bool scoreBuying, Upgrade* up, Bullet* shot, ClickUp& clickUp,Textures& tex)
 {
 	ChangedBackground();
-	DrawTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, timerBullet, max_count_creeps, creeps, scoreBuying, up, shot);
-	DrawCreeps(curpos, mouse_x, mouse_y, mousebtdown, max_count_creeps, creeps, clickUp);
+	DrawTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, timerBullet, max_count_creeps, creeps, scoreBuying, up, shot,tex);
+	DrawCreeps(curpos, mouse_x, mouse_y, mousebtdown, max_count_creeps, creeps, clickUp,tex);
 	CheckDistance(timerBullet, max_count_creeps, creeps, towers, shot);
 	DrawScore();
+	DrawShop(tex);
+	buyingClickTower(mouse_x, mouse_y, mousebtdown, scoreBuying);
+	buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up);
 	SDL_RenderPresent(ren);
+	MissClicks(mousebtdown);
 	SDL_Delay(1000 / 60);
 	curpos++;
 }
@@ -43,11 +55,12 @@ int main(int argc, char* argv[])
 	Bullet shot[4];
 	ClickUp clickUp;
 
-	initTowerTextures("images/Tower.png", towers);
-	initCreepTextures("images/creepsbg.png", creeps);
+	Textures tex;
+
+	initTowerTextures("images/Tower.png", tex);
+	initCreepTextures("images/creepsbg.png", tex);
 	initScore();
 	initShopbgTextures("images/shopbg.png");
-	initShopTextures("images/Tower.png", towers);
 	initBulletTextures("images/cannonball.png", shot);
 	initPrice();
 	initClickUpgrade(clickUp);
@@ -213,7 +226,7 @@ int main(int argc, char* argv[])
 			if (tt % 60 == 0)
 				setCreep(max_count_creeps, creeps);
 
-			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, shot, clickUp);
+			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, shot, clickUp,tex);
 		}
 
 	}//isRunning
