@@ -1,10 +1,10 @@
 #pragma once
 #include<iostream>
 
-void ScoreCheck(int point, bool& scoreBuying);
+void ScoreCheck(int point, bool& scoreBuying, Score& score);
 
-void initScore();
+void initScore(Score& score);
 
-void ScoreUpdate( int point);
+void ScoreUpdate( int point, Score& score);
 
-void DrawScore();
+void DrawScore(Score& score);

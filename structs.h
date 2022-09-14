@@ -50,33 +50,31 @@ struct Bullet
 	SDL_Rect bullet;
 	float x, y;
 	bool spawn;
-	float dist;
-	int lock = -1;
-	float rad = 150;
+};
+
+struct Bull
+{
+	SDL_Texture* tex;
+	SDL_Rect anim;
+	SDL_Rect rect = {0,0,10,10};
+	float x, y;
 };
 
 struct Tower
 {
-	int index;
+	int index;//for save and load
 
 	SDL_Texture* tex;
 	SDL_Rect anim;
 	SDL_Rect spawn;
 
-	int rad;
+	int lock = -1;//lock in enemy
+	int dist;//distance to the creep
+	int damage;//damage bullet
+	int level;//level tower(up damage)
+	int range = 300;
 
-	int lock = 101;
-
-	SDL_Texture* shot_tex;
-	SDL_Rect shot_anim;
-	Bullet bullet;
-	bool shot_spawn;	
-
-	int dist;
-
-	int damage;
-
-	int level;
+	Bull bullet;
 };
 
 struct Places
@@ -136,16 +134,3 @@ struct ClickUp
 	int level;
 	int damage;
 };
-
-
-//struct Shot
-//{
-//	SDL_Texture* tex;
-//	SDL_Rect anim;
-//
-//	SDL_Rect bullet;
-//
-//	int timer;
-//
-//	bool spawn;
-//};

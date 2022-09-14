@@ -16,20 +16,14 @@ Price price[3];
 bool buy = false;
 int buyType = 0;
 
+int spawn = 0;
+
 void initShopbgTextures(const char filename[])
 {
 	shopbg.tex = loadTextureFromFile(filename, &shopbg.anim);
 	shopbg.anim = { 406,236,150,34 };
 	shopbg.spawn = { 0,500,1280,220 };
 }
-
-//void initShopTextures(const char filename[], Tower* towers)
-//{
-//	for (int i = 0; i < 3; i++)
-//	{
-//		shop[i].tex = loadTextureFromFile(filename, &towers[i].anim);
-//	}
-//}
 
 void SetShop()
 {
@@ -45,12 +39,12 @@ void SetShop()
 
 void setTypeTower(int buyType, int& countTower, Tower* towers)
 {
-	if (buyType == 1)
+	switch (buyType)
+	{
+	case 1:
 	{
 		towers[countTower].anim = { 0,0,150,105 };
-
-		towers[countTower].rad = 200;
-		towers[countTower].lock = 101;
+		towers[countTower].lock = -1;
 
 		//Индекс башни для сохранения
 		towers[countTower].index = towers[countTower].index + 1;
@@ -58,42 +52,44 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 		//место спавна пули
 		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
-		towers[countTower].shot_spawn = true;
 
 		buyType = 0;
 		countTower++;
-	}
-	else if (buyType == 2)
-	{
-		towers[countTower].anim = { 175,0,150,105 };
 
-		towers[countTower].rad = 200;
-		towers[countTower].lock = 101;
+		break;
+	}
+	case 2:
+	{
+
+		towers[countTower].anim = { 175,0,150,105 };
+		towers[countTower].lock = -1;
 
 		towers[countTower].index = towers[countTower].index + 2;
 
 		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
-		towers[countTower].shot_spawn = true;
 
 		buyType = 0;
 		countTower++;
-	}
-	else if (buyType == 3)
-	{
-		towers[countTower].anim = { 355,0,150,105 };
 
-		towers[countTower].rad = 200;
-		towers[countTower].lock = 101;
+		break;
+	}
+	case 3:
+	{
+
+		towers[countTower].anim = { 355,0,150,105 };
+		towers[countTower].lock = -1;
 
 		towers[countTower].index = towers[countTower].index + 3;
 
 		towers[countTower].bullet.x = towers[countTower].spawn.x + towers[countTower].spawn.w / 2;
 		towers[countTower].bullet.y = towers[countTower].spawn.y + towers[countTower].spawn.h / 2;
-		towers[countTower].shot_spawn = true;
 
 		buyType = 0;
 		countTower++;
+
+		break;
+	}
 	}
 
 }
@@ -105,7 +101,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 	{
 
 		//Левая башня сверху
-		if (checkSpawn1 == false and mousebtdown == true and mouse_x >= place.p1.x and mouse_x <= place.p1.x + place.p1.w and mouse_y >= place.p1.y and mouse_y <= place.p1.y + place.p1.h)
+		if (checkSpawn1 == false and mousebtdown == true and mouse_x >= place.p1.x and mouse_x <= place.p1.x + place.p1.w and mouse_y >= place.p1.y and mouse_y <= place.p1.y + place.p1.h or spawn==1)
 		{
 			checkSpawn1 = true;
 
@@ -120,12 +116,12 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].index = 10;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower,up);
+			initUpgrade(countTower, up);
 			setTypeTower(buyType, countTower, towers);
 		}
 
 		//Правая башня сверху
-		else if (checkSpawn2 == false and mousebtdown == true and mouse_x >= place.p2.x and mouse_x <= place.p2.x + place.p2.w and mouse_y >= place.p2.y and mouse_y <= place.p2.y + place.p2.h)
+		else if (checkSpawn2 == false and mousebtdown == true and mouse_x >= place.p2.x and mouse_x <= place.p2.x + place.p2.w and mouse_y >= place.p2.y and mouse_y <= place.p2.y + place.p2.h or spawn == 2)
 		{
 			checkSpawn2 = true;
 
@@ -144,7 +140,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			setTypeTower(buyType, countTower, towers);
 		}
 
-		else if (checkSpawn3 == false and mousebtdown == true and mouse_x >= place.p3.x and mouse_x <= place.p3.x + place.p3.w and mouse_y >= place.p3.y and mouse_y <= place.p3.y + place.p3.h)
+		else if (checkSpawn3 == false and mousebtdown == true and mouse_x >= place.p3.x and mouse_x <= place.p3.x + place.p3.w and mouse_y >= place.p3.y and mouse_y <= place.p3.y + place.p3.h or spawn == 3)
 		{
 			checkSpawn3 = true;
 
@@ -155,7 +151,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			up[countTower].button = { 288,448,20,20 };
 			up[countTower].drawRect = { 288,408,50,25 };
 			towers[countTower].level = 1;
-			
+
 			towers[countTower].index = 30;
 
 			CheckLevelTower(countTower, towers);
@@ -163,7 +159,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			setTypeTower(buyType, countTower, towers);
 		}
 
-		else if (checkSpawn4 == false and mousebtdown == true and mouse_x >= place.p4.x and mouse_x <= place.p4.x + place.p4.w and mouse_y >= place.p4.y and mouse_y <= place.p4.y + place.p4.h)
+		else if (checkSpawn4 == false and mousebtdown == true and mouse_x >= place.p4.x and mouse_x <= place.p4.x + place.p4.w and mouse_y >= place.p4.y and mouse_y <= place.p4.y + place.p4.h or spawn == 4)
 		{
 			checkSpawn4 = true;
 
@@ -177,7 +173,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 
 			towers[countTower].index = 40;
 
-			CheckLevelTower(countTower,towers);
+			CheckLevelTower(countTower, towers);
 			initUpgrade(countTower, up);
 			setTypeTower(buyType, countTower, towers);
 		}
@@ -185,6 +181,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 
 	if (load)
 	{
+		buy = true;
 		int placeT = 0;
 		int typeT = 0;
 		for (int i = 0; i < 4; i++)
@@ -196,24 +193,28 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			case 1:
 			{
 				towers[i].spawn = { 340,183,150,105 };
+				spawn = 1;
 				checkSpawn1 = true;
 				break;
 			}
 			case 2:
 			{
 				towers[i].spawn = { 923,180,150,105 };
+				spawn = 2;
 				checkSpawn2 = true;
 				break;
 			}
 			case 3:
 			{
 				towers[i].spawn = { 128,363,150,105 };
+				spawn = 3;
 				checkSpawn3 = true;
 				break;
 			}
 			case 4:
 			{
 				towers[i].spawn = { 594,363,150,105 };
+				spawn = 4;
 				checkSpawn4 = true;
 				break;
 			}
@@ -240,22 +241,23 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			break;
 			}
 			setTypeTower(buyType, i, towers);
+			buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up);
 		}
 		load = false;
 	}
 
 }
 
-void buyingClickTower(int mouse_x, int mouse_y, bool& mousebtdown, bool& scoreBuying)
+void buyingClickTower(int mouse_x, int mouse_y, bool& mousebtdown, bool& scoreBuying,Score& score)
 {
 	if (mousebtdown == true and mouse_x >= shop[0].spawn.x and mouse_x <= shop[0].spawn.x + shop[0].spawn.w and mouse_y >= shop[0].spawn.y and mouse_y <= shop[0].spawn.y + shop[0].spawn.h)
 	{
-		ScoreCheck(price[0].cost, scoreBuying);
+		ScoreCheck(price[0].cost, scoreBuying,score);
 		if (scoreBuying)
 		{
 			buy = true;
 			buyType = 1;
-			ScoreUpdate(-price[0].cost);
+			ScoreUpdate(-price[0].cost,score);
 			mousebtdown = false;
 		}
 		scoreBuying = false;
@@ -264,12 +266,12 @@ void buyingClickTower(int mouse_x, int mouse_y, bool& mousebtdown, bool& scoreBu
 	else
 		if (mousebtdown == true and mouse_x >= shop[1].spawn.x and mouse_x <= shop[1].spawn.x + shop[1].spawn.w and mouse_y >= shop[1].spawn.y and mouse_y <= shop[1].spawn.y + shop[1].spawn.h)
 		{
-			ScoreCheck(price[1].cost, scoreBuying);
+			ScoreCheck(price[1].cost, scoreBuying,score);
 			if (scoreBuying)
 			{
 				buy = true;
 				buyType = 2;
-				ScoreUpdate(-price[1].cost);
+				ScoreUpdate(-price[1].cost,score);
 				mousebtdown = false;
 			}
 			scoreBuying = false;
@@ -278,12 +280,12 @@ void buyingClickTower(int mouse_x, int mouse_y, bool& mousebtdown, bool& scoreBu
 		else
 			if (mousebtdown == true and mouse_x >= shop[2].spawn.x and mouse_x <= shop[2].spawn.x + shop[2].spawn.w and mouse_y >= shop[2].spawn.y and mouse_y <= shop[2].spawn.y + shop[2].spawn.h)
 			{
-				ScoreCheck(price[2].cost, scoreBuying);
+				ScoreCheck(price[2].cost, scoreBuying,score);
 				if (scoreBuying)
 				{
 					buy = true;
 					buyType = 3;
-					ScoreUpdate(-price[2].cost);
+					ScoreUpdate(-price[2].cost,score);
 					mousebtdown = false;
 				}
 				scoreBuying = false;

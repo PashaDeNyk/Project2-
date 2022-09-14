@@ -16,44 +16,81 @@
 int Ctt = 0;
 int numCreep = 0;
 
-void DestructCreeps(int i, Creep* creeps)
+void DestructCreeps(int i, Creep* creeps, Score& score, Textures& tex)
 {
-	if (creeps[i].health <= 0 and creeps[i].active or creeps[i].xWay > 1000)
+	if (creeps[i].health <= 0 and creeps[i].active or creeps[i].xWay > 1280)
 	{
-		creeps[i].xAnim = -1;
-		creeps[i].yAnim = -1;
-		creeps[i].xWay = -100;
-		creeps[i].yWay = -100;
+		//creeps[i].xAnim = -1;
+		//creeps[i].yAnim = -1;
+		//creeps[i].xWay = -100;
+		//creeps[i].yWay = -100;
 		creeps[i].active = false;
-		ScoreUpdate(25);
+		ScoreUpdate(25, score);
 	}
 }
 
 void setCreep(int& max_count_creeps, Creep* creeps)
 {
-	if (numCreep < 5)
+	int typeCreep;
+	//if (numCreep < 5)
+	//{
+	//	creeps[numCreep].xWay = 0;
+	//	creeps[numCreep].yWay = 270;
+	//	creeps[numCreep].xAnim = 75;
+	//	creeps[numCreep].yAnim = 140;
+	//	creeps[numCreep].health = 100;
+	//	creeps[numCreep].active = true;
+	//	numCreep++;
+	//}
+	//if (numCreep % 5 == 0)
+	//	Ctt++;//Задержка
+	//if (numCreep > 4 and numCreep < 10 and Ctt == 2)
+	//{
+	//	creeps[numCreep].xWay = 0;
+	//	creeps[numCreep].yWay = 270;
+	//	creeps[numCreep].xAnim = 75;
+	//	creeps[numCreep].yAnim = 535;
+	//	creeps[numCreep].health = 100;
+	//	creeps[numCreep].active = true;
+	//	numCreep++;
+	//}
+	//
+
+	typeCreep = rand() % 2 + 1;
+	if (max_count_creeps < 10)
 	{
-		creeps[numCreep].xWay = 0;
-		creeps[numCreep].yWay = 270;
-		creeps[numCreep].xAnim = 75;
-		creeps[numCreep].yAnim = 140;
-		creeps[numCreep].health = 100;
-		creeps[numCreep].active = true;
-		numCreep++;
+		switch (typeCreep)
+		{
+		case 1:
+		{
+			creeps[numCreep].xWay = 0;
+			creeps[numCreep].yWay = 270;
+			creeps[numCreep].xAnim = 75;
+			creeps[numCreep].yAnim = 140;
+			creeps[numCreep].health = 100;
+			creeps[numCreep].active = true;
+			numCreep++;
+			break;
+		}
+		case 2:
+		{
+			creeps[numCreep].xWay = 0;
+			creeps[numCreep].yWay = 270;
+			creeps[numCreep].xAnim = 75;
+			creeps[numCreep].yAnim = 535;
+			creeps[numCreep].health = 100;
+			creeps[numCreep].active = true;
+			numCreep++;
+			break;
+		}
+		break;
+		}
+		max_count_creeps = numCreep;
 	}
-	if (numCreep == 5)
-		Ctt++;//Задержка
-	if (numCreep > 4 and numCreep < 10 and Ctt == 2)
+	else if (!creeps[0].active and !creeps[1].active and !creeps[2].active and !creeps[3].active and !creeps[4].active and !creeps[5].active and !creeps[6].active and !creeps[7].active and !creeps[8].active and !creeps[9].active)
 	{
-		creeps[numCreep].xWay = 0;
-		creeps[numCreep].yWay = 270;
-		creeps[numCreep].xAnim = 75;
-		creeps[numCreep].yAnim = 535;
-		creeps[numCreep].health = 100;
-		creeps[numCreep].active = true;
-		numCreep++;
+		max_count_creeps = 1;
 	}
-	max_count_creeps = numCreep;
 }
 
 void SetWayCreeps(int& x)
@@ -100,20 +137,20 @@ void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creep
 	}
 }
 
-void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& max_count_creeps, Creep* creeps, ClickUp& clickUp,Textures& tex)
+void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& max_count_creeps, Creep* creeps, ClickUp& clickUp, Textures& tex, Score& score)
 {
-	for (int i = 0; i < numCreep; i++)
+	for (int i = 0; i < max_count_creeps; i++)
 	{
 		AnimationCreeps(curpos, i, creeps);
-		SetWayCreeps(creeps[i].xWay);
+		if (creeps[i].active)
+			SetWayCreeps(creeps[i].xWay);
 		SDL_Rect spawn = { creeps[i].xWay,creeps[i].yWay,42,84 };//Место спавна и размер самой картинки на фоне
-		DrawButtonClickUpgrade(clickUp);
-		DrawLevelClickUpgrade(clickUp);
-		ButtonClickUpgrade(mouse_x, mouse_y, mousebtdown, clickUp);
+		ButtonClickUpgrade(mouse_x, mouse_y, mousebtdown, clickUp, score);
 		ClickCreep(i, mouse_x, mouse_y, mousebtdown, creeps, clickUp);
 		HealthCreep(i, creeps);
-		SDL_RenderCopy(ren, tex.creep, &creeps[i].anim, &spawn);
-		DestructCreeps(i, creeps);
+		if (creeps[i].active)
+			SDL_RenderCopy(ren, tex.creep, &creeps[i].anim, &spawn);
+		DestructCreeps(i, creeps, score, tex);
 		SDL_SetRenderDrawColor(ren, 0, 255, 0, 255);
 	}
 }

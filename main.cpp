@@ -18,7 +18,6 @@
 #include"bullet.h"
 #include"upgrade.h"
 
-
 void MissClicks(bool& mousebtdown)
 {
 	if (mousebtdown)
@@ -27,16 +26,18 @@ void MissClicks(bool& mousebtdown)
 	}
 }
 
-void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, int& max_count_creeps, int& timerBullet, Creep* creeps, Tower* towers, bool& load, bool scoreBuying, Upgrade* up, Bullet* shot, ClickUp& clickUp,Textures& tex)
+void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, int& max_count_creeps, int& timerBullet, Creep* creeps, Tower* towers, bool& load, bool scoreBuying, Upgrade* up, ClickUp& clickUp, Textures& tex, Score& score)
 {
 	ChangedBackground();
-	DrawTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, timerBullet, max_count_creeps, creeps, scoreBuying, up, shot,tex);
-	DrawCreeps(curpos, mouse_x, mouse_y, mousebtdown, max_count_creeps, creeps, clickUp,tex);
-	CheckDistance(timerBullet, max_count_creeps, creeps, towers, shot);
-	DrawScore();
+	DrawTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, timerBullet, max_count_creeps, creeps, scoreBuying, up, tex,score);
+	DrawCreeps(curpos, mouse_x, mouse_y, mousebtdown, max_count_creeps, creeps, clickUp, tex,score);
+	CheckDistance(timerBullet, max_count_creeps, creeps, towers);
+	DrawScore(score);
 	DrawShop(tex);
-	buyingClickTower(mouse_x, mouse_y, mousebtdown, scoreBuying);
+	buyingClickTower(mouse_x, mouse_y, mousebtdown, scoreBuying,score);
 	buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up);
+	DrawButtonClickUpgrade(clickUp);
+	DrawLevelClickUpgrade(clickUp);
 	SDL_RenderPresent(ren);
 	MissClicks(mousebtdown);
 	SDL_Delay(1000 / 60);
@@ -52,16 +53,16 @@ int main(int argc, char* argv[])
 	Creep creeps[25];
 	Tower towers[4];
 	Upgrade up[4];
-	Bullet shot[4];
 	ClickUp clickUp;
-
+	Score score;
 	Textures tex;
 
 	initTowerTextures("images/Tower.png", tex);
 	initCreepTextures("images/creepsbg.png", tex);
-	initScore();
+	initScore(score);
 	initShopbgTextures("images/shopbg.png");
-	initBulletTextures("images/cannonball.png", shot);
+	for (size_t i = 0; i < 4; i++)
+	initBulletTextures("images/cannonball.png", towers[i].bullet);
 	initPrice();
 	initClickUpgrade(clickUp);
 
@@ -77,9 +78,9 @@ int main(int argc, char* argv[])
 	bool isRunning = true;
 
 	bool startgame = false;
-	bool startapp = false;
+	bool startapp = true;
 	bool bgcreeps = false;
-	bool bgmenu = false;
+	bool bgmenu = true;
 
 	int i = 0;
 
@@ -169,13 +170,13 @@ int main(int argc, char* argv[])
 				}
 				case SDL_SCANCODE_F5:
 				{
-					SaveBin(towers);
+					SaveBin(towers,score);
 					break;
 				}
 				case SDL_SCANCODE_F6:
 				{
 					load = true;
-					LoadBin(towers);
+					LoadBin(towers,score);
 					break;
 				}
 
@@ -196,25 +197,23 @@ int main(int argc, char* argv[])
 			MenuDestroy();
 			SDL_RenderPresent(ren);
 		}
-		
+
 		//Info
 		if (startInfo)
 		{
-			startapp = false;
-			if (bgInfo)
+			if (startapp)
 			{
-				initBackgroundsTextures("images/bgmenu.jpg");
-				bgInfo = false;
+				MenuDestroy();
+				startapp = false;
 			}
-		
 			getInfo();
-			SDL_RenderPresent(ren);
 		}
 
 		//game
 		if (startgame)
 		{
-			startapp = false;//выключает меню
+			if (startapp)
+				startapp = false;//выключает меню
 
 			if (bgcreeps)//Единожды загружает задник игры
 			{
@@ -226,7 +225,7 @@ int main(int argc, char* argv[])
 			if (tt % 60 == 0)
 				setCreep(max_count_creeps, creeps);
 
-			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, shot, clickUp,tex);
+			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, clickUp, tex,score);
 		}
 
 	}//isRunning

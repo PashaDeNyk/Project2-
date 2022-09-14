@@ -4,7 +4,7 @@
 
 
 //Сохранение в бинарный файл
-void SaveBin(Tower* towers)
+void SaveBin(Tower* towers,Score& score)
 {
 	FILE* f;
 	if (fopen_s(&f, "save.bin", "wb") != 0)
@@ -12,6 +12,7 @@ void SaveBin(Tower* towers)
 		printf("Couldn't open file save.bin!\n");
 		exit(1);
 	}
+	fwrite(&score.point,sizeof(int),1,f);
 	for (int i = 0; i < 4; i++)
 	{
 		fwrite(&towers[i].index, sizeof(int), 1, f);
@@ -21,7 +22,7 @@ void SaveBin(Tower* towers)
 }
 
 //Загрузка из бинарного файла
-void LoadBin(Tower* towers)
+void LoadBin(Tower* towers,Score& score)
 {
 	FILE* f;
 	if (fopen_s(&f, "save.bin", "rb") != 0)
@@ -29,6 +30,7 @@ void LoadBin(Tower* towers)
 		printf("Couldn't open file save.bin!\n");
 		exit(1);
 	}
+	fread(&score.point, sizeof(int), 1, f);
 	for (int i = 0; i < 4; i++)
 	{
 		fread(&towers[i].index, sizeof(int), 1, f);

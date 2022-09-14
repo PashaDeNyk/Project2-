@@ -82,3 +82,11 @@ void initTowerTextures(const char filename[], Textures& tex)
 {
 		tex.tower = loadTextureFromFile(filename, &rect);
 }
+
+void DestroyTexture(SDL_Texture* name_texture, int countTextures)
+{
+	for (int i = 0; i < countTextures; i++)
+	{
+		SDL_DestroyTexture(name_texture);
+	}
+}

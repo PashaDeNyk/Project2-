@@ -37,18 +37,18 @@ void DrawButtonUpgrade(Upgrade* up)
 	}
 }
 
-void ButtonUpgrade(int mouse_x, int mouse_y, bool& mousebtdown, Tower* towers, Upgrade* up, int i)
+void ButtonUpgrade(int mouse_x, int mouse_y, bool& mousebtdown, Tower* towers, Upgrade* up, int i,Score& score)
 {
 	if (mousebtdown and mouse_x >= up[i].button.x and mouse_x <= up[i].button.x + up[i].button.w and mouse_y >= up[i].button.y and mouse_y <= up[i].button.y + up[i].button.h)
 	{
-		ScoreCheck(25, buyUp);
+		ScoreCheck(25, buyUp, score);
 		if (buyUp)
 		{
 			mousebtdown = false;
 			if (towers[i].level < 4)
 			{
 				towers[i].level++;
-				ScoreUpdate(-25);
+				ScoreUpdate(-25, score);
 				UpdateUpgrade(i, towers, up);
 				CheckLevelTower(i, towers);
 			}
@@ -116,18 +116,18 @@ void CheckClickLevel(ClickUp& clickUp)
 	}
 }
 
-void ButtonClickUpgrade(int mouse_x, int mouse_y, bool& mousebtdown, ClickUp& clickUp)
+void ButtonClickUpgrade(int mouse_x, int mouse_y, bool& mousebtdown, ClickUp& clickUp,Score& score)
 {
 	if (mousebtdown and mouse_x >= clickUp.drawRect.x and mouse_x <= clickUp.drawRect.x + clickUp.drawRect.w and mouse_y >= clickUp.drawRect.y and mouse_y <= clickUp.drawRect.y + clickUp.drawRect.h)
 	{
-		ScoreCheck(25, buyUp);
+		ScoreCheck(25, buyUp, score);
 		if (buyUp)
 		{
 			mousebtdown = false;
 			if (clickUp.level < 5)
 			{
 				clickUp.level++;
-				ScoreUpdate(-25);
+				ScoreUpdate(-25,score);
 				UpdateClickUpgrade(clickUp);
 				CheckClickLevel(clickUp);
 			}

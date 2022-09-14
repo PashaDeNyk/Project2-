@@ -3,9 +3,8 @@
 #include"structs.h"
 #include"menu.h"
 
-Score score;
 
-void ScoreCheck(int point,bool& scoreBuying)
+void ScoreCheck(int point,bool& scoreBuying,Score& score)
 {
 	if (score.point >= point)
 	{
@@ -13,7 +12,7 @@ void ScoreCheck(int point,bool& scoreBuying)
 	}
 }
 
-void ScoreUpdate(int point)
+void ScoreUpdate(int point, Score& score)
 {
 	score.point+=point;
 	if (score.textures.tex)
@@ -25,14 +24,14 @@ void ScoreUpdate(int point)
 	
 }
 
-void initScore()
+void initScore(Score& score)
 {
 	score.drawRect = { 0,0,200,35 };
 	score.point = 100;
-	ScoreUpdate(score.point);
+	ScoreUpdate(score.point,score);
 }
 
-void DrawScore()
+void DrawScore(Score& score)
 {
 	SDL_RenderCopy(ren, score.textures.tex, NULL, &score.drawRect);
 }

@@ -62,14 +62,16 @@ void MenuDestroy()
 void getInfo()
 {
 	ChangedBackground();
-	SDL_DestroyTexture(info.textures.tex);
-	info.textures = loadFont("Created by Danyukov Pavel", "fonts\\Chava-Regular.ttf", {0,0,180,255}, 25);
+	
+	info.textures = loadFont("Created by Danyukov Pavel", "fonts\\Chava-Regular.ttf", {255,255,255,255}, 25);
 	info.drawRect.y = (720-info.drawRect.h)/2;
 	info.drawRect.w = info.textures.dstrect.w;
 	info.drawRect.h = info.textures.dstrect.h;
 	info.drawRect.x = (1280 - info.drawRect.w) / 2;
 	info.textures.dstrect = info.drawRect;
-	SDL_RenderCopy(ren, info.textures.tex, NULL, &info.textures.dstrect);
+	SDL_RenderCopy(ren, info.textures.tex, NULL, &info.textures.dstrect); 
+	SDL_RenderPresent(ren);
+	SDL_DestroyTexture(info.textures.tex);
 }
 
 void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& bgcreeps, bool& mousebtdown,bool& isRunning,bool& startInfo)
@@ -83,13 +85,9 @@ void MenuClick(int mouse_x, int mouse_y, bool& startgame, bool& startapp, bool& 
 				if (i == 0)
 				{
 					startapp = false;
-
 					startgame = true;
-
 					bgcreeps = true;
-
 					mousebtdown = false;
-					printf("CLICK ON START");
 				}
 				if(i==1)
 				{
@@ -114,7 +112,7 @@ void drawMenu(int i, int mouse_x, int mouse_y, bool& startgame, bool& startapp, 
 
 	for (int i = 0, y = 200; i < 3; i++, y += 100)
 	{
-		menu[i].textures = loadFont(options[i], "fonts\\Chava-Regular.ttf", { 0,0,180,255 }, 25);
+		menu[i].textures = loadFont(options[i], "fonts\\Chava-Regular.ttf", { 255,255,255,255 }, 25);
 		//Меняет цвет если мышка в зоне кнопки
 		if (mouse_x >= menu[i].drawRect.x and mouse_x <= menu[i].drawRect.x + menu[i].drawRect.w and mouse_y >= menu[i].drawRect.y and mouse_y <= menu[i].drawRect.y + menu[i].drawRect.h)
 		{
