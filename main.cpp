@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
 	int mouse_x = 0, mouse_y = 0;
 	int anpos = 0;
 
-	int max_count_creeps = 0;
+	int max_count_creeps = 1;
 
 	bool mousebtdown = false;
 	bool rightbtdown = false;
