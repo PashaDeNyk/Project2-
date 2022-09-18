@@ -35,7 +35,7 @@ void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTo
 	DrawScore(score);
 	DrawShop(tex);
 	buyingClickTower(mouse_x, mouse_y, mousebtdown, scoreBuying,score);
-	buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up);
+	buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up,tex);
 	DrawButtonClickUpgrade(clickUp);
 	DrawLevelClickUpgrade(clickUp);
 	SDL_RenderPresent(ren);

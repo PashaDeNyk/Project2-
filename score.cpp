@@ -27,7 +27,7 @@ void ScoreUpdate(int point, Score& score)
 void initScore(Score& score)
 {
 	score.drawRect = { 0,0,200,35 };
-	score.point = 100;
+	score.point = 0;
 	ScoreUpdate(score.point,score);
 }
 

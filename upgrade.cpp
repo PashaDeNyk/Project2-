@@ -5,11 +5,13 @@
 #include"score.h"
 #include"tower.h"
 #include"creeps.h"
-
+#include"background.h"
 bool buyUp = false;
+SDL_Rect rects;
 
-void initUpgrade(int i, Upgrade* up)
+void initUpgrade(int i, Upgrade* up, Textures& tex)
 {
+	tex.towerUp = loadTextureFromFile("images/lvltower.png", &rects);
 	up[i].textures = loadFont("lvl 1", "fonts\\Chava-Regular.ttf", { 0, 0, 200, 255 }, 25);
 }
 
@@ -28,12 +30,11 @@ void DrawLevelUpgrade(Upgrade* up)
 	}
 }
 
-void DrawButtonUpgrade(Upgrade* up)
+void DrawButtonUpgrade(Upgrade* up, Textures& tex)
 {
 	for (int i = 0; i < 4; i++)
 	{
-		SDL_SetRenderDrawColor(ren, 0, 0, 180, 255);
-		SDL_RenderFillRect(ren, &up[i].button);
+		SDL_RenderCopy(ren,tex.towerUp,NULL,&up[i].button);
 	}
 }
 
@@ -58,6 +59,7 @@ void ButtonUpgrade(int mouse_x, int mouse_y, bool& mousebtdown, Tower* towers, U
 
 void initClickUpgrade(ClickUp& clickUp)
 {
+	clickUp.tex = loadTextureFromFile("images/cursor.png", &rects);
 	clickUp.textures = loadFont("lvl 1", "fonts\\Chava-Regular.ttf", { 0, 0, 200, 255 }, 25);
 	clickUp.lvlRect = {1160,550,50,25};
 	clickUp.drawRect = { 1220,550,40,40 };
@@ -74,8 +76,7 @@ void UpdateClickUpgrade(ClickUp& clickUp)
 
 void DrawButtonClickUpgrade(ClickUp& clickUp)
 {
-	SDL_SetRenderDrawColor(ren, 0, 0, 180, 255);
-	SDL_RenderFillRect(ren, &clickUp.drawRect);
+	SDL_RenderCopy(ren,clickUp.tex,NULL,&clickUp.drawRect);
 }
 
 void DrawLevelClickUpgrade(ClickUp& clickUp)
@@ -110,7 +111,7 @@ void CheckClickLevel(ClickUp& clickUp)
 	}
 	case 5:
 	{
-		clickUp.damage = 35;
+		clickUp.damage = 30;
 		break;
 	}
 	}

@@ -16,6 +16,7 @@ struct Textures
 	SDL_Texture* creep;
 	SDL_Texture* tower;
 	SDL_Texture* shobg;
+	SDL_Texture* towerUp;
 };
 
 struct Menu
@@ -36,20 +37,7 @@ struct Creep
 	SDL_Rect damageRect;  SDL_Rect healthRect; int health;
 	int xWay, yWay;
 	bool active;
-	bool inZone;
 	bool score;
-
-	int cher_way;
-	bool cher_bool;
-};
-
-struct Bullet
-{
-	SDL_Texture* tex;
-	SDL_Rect anim;
-	SDL_Rect bullet;
-	float x, y;
-	bool spawn;
 };
 
 struct Bull
@@ -73,6 +61,8 @@ struct Tower
 	int damage;//damage bullet
 	int level;//level tower(up damage)
 	int range = 300;
+
+	bool active = false;
 
 	Bull bullet;
 };
@@ -102,7 +92,7 @@ struct Score
 {
 	Texture textures;
 	SDL_Rect drawRect;
-	int point = 100;
+	int point;
 };
 
 struct Price
@@ -131,6 +121,7 @@ struct ClickUp
 	SDL_Rect button;
 	SDL_Rect drawRect;
 	SDL_Rect lvlRect;
+	SDL_Texture* tex;
 	int level;
 	int damage;
 };

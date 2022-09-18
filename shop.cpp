@@ -95,7 +95,7 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 }
 
 //Определение места постройки башни
-void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, Upgrade* up)
+void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, Upgrade* up,Textures& tex)
 {
 	if (buy == true)
 	{
@@ -112,11 +112,11 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			up[countTower].button = { 500,265,20,20 };
 			up[countTower].drawRect = { 500,225,50,25 };
 			towers[countTower].level = 1;
-
 			towers[countTower].index = 10;
+			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up);
+			initUpgrade(countTower, up,tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -132,11 +132,11 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			up[countTower].button = { 1083,265,20,20 };
 			up[countTower].drawRect = { 1083,225,50,25 };
 			towers[countTower].level = 1;
-
 			towers[countTower].index = 20;
+			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up);
+			initUpgrade(countTower, up,tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -151,11 +151,11 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			up[countTower].button = { 288,448,20,20 };
 			up[countTower].drawRect = { 288,408,50,25 };
 			towers[countTower].level = 1;
-
 			towers[countTower].index = 30;
+			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up);
+			initUpgrade(countTower, up,tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -170,11 +170,11 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			up[countTower].button = { 754,448,20,20 };
 			up[countTower].drawRect = { 754,408,50,25 };
 			towers[countTower].level = 1;
-
 			towers[countTower].index = 40;
+			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up);
+			initUpgrade(countTower, up,tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 	}
@@ -241,7 +241,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			break;
 			}
 			setTypeTower(buyType, i, towers);
-			buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up);
+			buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up,tex);
 		}
 		load = false;
 	}
