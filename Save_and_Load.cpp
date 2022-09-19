@@ -1,5 +1,4 @@
 #include<iostream>
-
 #include"structs.h"
 
 
@@ -16,8 +15,8 @@ void SaveBin(Tower* towers,Score& score)
 	for (int i = 0; i < 4; i++)
 	{
 		fwrite(&towers[i].index, sizeof(int), 1, f);
+		fwrite(&towers[i].level,sizeof(int),1,f);
 	}
-	//fwrite(&score,sizeof(int),1,f)
 	fclose(f);
 }
 
@@ -34,7 +33,7 @@ void LoadBin(Tower* towers,Score& score)
 	for (int i = 0; i < 4; i++)
 	{
 		fread(&towers[i].index, sizeof(int), 1, f);
+		fread(&towers[i].level, sizeof(int), 1, f);
 	}
-	//fread(&score,sizeof(int),1,f)
 	fclose(f);
 }

@@ -95,13 +95,13 @@ void setTypeTower(int buyType, int& countTower, Tower* towers)
 }
 
 //Определение места постройки башни
-void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, Upgrade* up,Textures& tex)
+void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, Upgrade* up, Textures& tex)
 {
 	if (buy == true)
 	{
 
 		//Левая башня сверху
-		if (checkSpawn1 == false and mousebtdown == true and mouse_x >= place.p1.x and mouse_x <= place.p1.x + place.p1.w and mouse_y >= place.p1.y and mouse_y <= place.p1.y + place.p1.h or spawn==1)
+		if (checkSpawn1 == false and mousebtdown == true and mouse_x >= place.p1.x and mouse_x <= place.p1.x + place.p1.w and mouse_y >= place.p1.y and mouse_y <= place.p1.y + place.p1.h or spawn == 1)
 		{
 			checkSpawn1 = true;
 
@@ -116,7 +116,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up,tex);
+			initUpgrade(countTower, up, tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -136,7 +136,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up,tex);
+			initUpgrade(countTower, up, tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -155,7 +155,7 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up,tex);
+			initUpgrade(countTower, up, tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 
@@ -174,11 +174,14 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			towers[countTower].active = true;
 
 			CheckLevelTower(countTower, towers);
-			initUpgrade(countTower, up,tex);
+			initUpgrade(countTower, up, tex);
 			setTypeTower(buyType, countTower, towers);
 		}
 	}
+}
 
+void LoadTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, Upgrade* up, Textures& tex)
+{
 	if (load)
 	{
 		buy = true;
@@ -192,28 +195,24 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			{
 			case 1:
 			{
-				towers[i].spawn = { 340,183,150,105 };
 				spawn = 1;
 				checkSpawn1 = true;
 				break;
 			}
 			case 2:
 			{
-				towers[i].spawn = { 923,180,150,105 };
 				spawn = 2;
 				checkSpawn2 = true;
 				break;
 			}
 			case 3:
 			{
-				towers[i].spawn = { 128,363,150,105 };
 				spawn = 3;
 				checkSpawn3 = true;
 				break;
 			}
 			case 4:
 			{
-				towers[i].spawn = { 594,363,150,105 };
 				spawn = 4;
 				checkSpawn4 = true;
 				break;
@@ -241,8 +240,10 @@ void buildTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bo
 			break;
 			}
 			setTypeTower(buyType, i, towers);
-			buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up,tex);
+			buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up, tex);
+			spawn = 0;
 		}
+
 		load = false;
 	}
 

@@ -100,6 +100,8 @@ int main(int argc, char* argv[])
 	bool startInfo = false;
 	bool bgInfo = true;
 
+	int point = 0;
+
 	SDL_Event ev;
 
 	while (isRunning)
@@ -177,9 +179,11 @@ int main(int argc, char* argv[])
 				{
 					load = true;
 					LoadBin(towers,score);
+					ScoreUpdate(point, score);
+					LoadTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up, tex);
+					UpdateUpgrade(i, towers, up);
 					break;
 				}
-
 				}
 			}
 		}
