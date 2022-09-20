@@ -49,7 +49,6 @@ int main(int argc, char* argv[])
 	Init();
 	srand(time(NULL));
 
-
 	Creep creeps[25];
 	Tower towers[4];
 	Upgrade up[4];
@@ -69,39 +68,26 @@ int main(int argc, char* argv[])
 	int tt = 59;
 	int mouse_x = 0, mouse_y = 0;
 	int anpos = 0;
-
 	int max_count_creeps = 1;
-
 	bool mousebtdown = false;
 	bool rightbtdown = false;
-
 	bool isRunning = true;
-
 	bool startgame = false;
 	bool startapp = true;
 	bool bgcreeps = false;
 	bool bgmenu = true;
-
 	int i = 0;
-
 	int countTower = 0;
-
 	bool checkSpawn4 = false;
 	bool checkSpawn1 = false;
 	bool checkSpawn2 = false;
 	bool checkSpawn3 = false;
-
 	int timerBullet = 0;
-
 	bool load = false;
-
 	bool scoreBuying = false;
-
 	bool startInfo = false;
 	bool bgInfo = true;
-
 	int point = 0;
-
 	SDL_Event ev;
 
 	while (isRunning)
@@ -188,10 +174,9 @@ int main(int argc, char* argv[])
 			}
 		}
 
-		//menu
-		if (startapp)//Включает меню
+		if (startapp)
 		{
-			if (bgmenu)//Единожды загружает задник меню
+			if (bgmenu)
 			{
 				initBackgroundsTextures("images/bgmenu.jpg");
 				bgmenu = false;
@@ -202,7 +187,6 @@ int main(int argc, char* argv[])
 			SDL_RenderPresent(ren);
 		}
 
-		//Info
 		if (startInfo)
 		{
 			if (startapp)
@@ -213,30 +197,29 @@ int main(int argc, char* argv[])
 			getInfo();
 		}
 
-		//game
 		if (startgame)
 		{
 			if (startapp)
-				startapp = false;//выключает меню
+				startapp = false;
 
-			if (bgcreeps)//Единожды загружает задник игры
+			if (bgcreeps)
 			{
 				initBackgroundsTextures("images/bg.jpg");
 				bgcreeps = false;
 			}
 
-			tt++;//Задержка перед появленнием нового крипа
+			tt++;
 			if (tt % 60 == 0)
 				setCreep(max_count_creeps, creeps);
 
 			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, clickUp, tex,score);
 		}
 
-	}//isRunning
+	}
 
 	TTF_CloseFont(0);
 
 	DeInit(0);
 	SDL_Quit();
 	return 0;
-}//main
+}

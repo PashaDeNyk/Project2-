@@ -1,9 +1,8 @@
 #include<iostream>
 #include"structs.h"
 
-
 //Сохранение в бинарный файл
-void SaveBin(Tower* towers,Score& score)
+void SaveBin(Tower* towers, Score& score)
 {
 	FILE* f;
 	if (fopen_s(&f, "save.bin", "wb") != 0)
@@ -11,17 +10,16 @@ void SaveBin(Tower* towers,Score& score)
 		printf("Couldn't open file save.bin!\n");
 		exit(1);
 	}
-	fwrite(&score.point,sizeof(int),1,f);
+	fwrite(&score.point, sizeof(int), 1, f);
 	for (int i = 0; i < 4; i++)
-	{
 		fwrite(&towers[i].index, sizeof(int), 1, f);
-		fwrite(&towers[i].level,sizeof(int),1,f);
-	}
+	for (int i = 0; i < 4; i++)
+		fwrite(&towers[i].level, sizeof(int), 1, f);
 	fclose(f);
 }
 
 //Загрузка из бинарного файла
-void LoadBin(Tower* towers,Score& score)
+void LoadBin(Tower* towers, Score& score)
 {
 	FILE* f;
 	if (fopen_s(&f, "save.bin", "rb") != 0)
@@ -31,9 +29,8 @@ void LoadBin(Tower* towers,Score& score)
 	}
 	fread(&score.point, sizeof(int), 1, f);
 	for (int i = 0; i < 4; i++)
-	{
 		fread(&towers[i].index, sizeof(int), 1, f);
+	for (int i = 0; i < 4; i++)
 		fread(&towers[i].level, sizeof(int), 1, f);
-	}
 	fclose(f);
 }

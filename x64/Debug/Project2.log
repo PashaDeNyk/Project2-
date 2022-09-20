@@ -1,1 +1,3 @@
-﻿  Project2.vcxproj -> W:\Курсач Прога\Project2 — копия\x64\Debug\Project2.exe
+﻿  main.cpp
+W:\Курсач Прога\Project2 — копия\main.cpp(50,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Project2.vcxproj -> W:\Курсач Прога\Project2 — копия\x64\Debug\Project2.exe

@@ -1,23 +1,15 @@
 #include <iostream>
-
 #include<SDL.h>
 #include <SDL_ttf.h>
 #include<SDL_image.h>
-
 #include "Initialization.h"
 #include"Structs.h"
 #include"GlobalVar.h"
 #include"background.h"
 #include"Menu.h"
 
-#pragma region MENU
-
 Menu menu[3];
 Info info;
-
-int red = 0;
-int green = 0;
-int blue = 0;
 
 Texture loadFont(const char text[], const char fontname[], SDL_Color color, int hgt)
 {
@@ -36,7 +28,6 @@ Texture loadFont(const char text[], const char fontname[], SDL_Color color, int 
 		system("pause");
 		DeInit(1);
 	}
-
 
 	Texture texture;
 	texture.tex = SDL_CreateTextureFromSurface(ren, surf);
@@ -62,7 +53,6 @@ void MenuDestroy()
 void getInfo()
 {
 	ChangedBackground();
-	
 	info.textures = loadFont("Created by Danyukov Pavel", "fonts\\Chava-Regular.ttf", {255,255,255,255}, 25);
 	info.drawRect.y = (720-info.drawRect.h)/2;
 	info.drawRect.w = info.textures.dstrect.w;
@@ -109,11 +99,9 @@ void drawMenu(int i, int mouse_x, int mouse_y, bool& startgame, bool& startapp, 
 {
 	ChangedBackground();
 	char options[][10] = { "Start","Info","Exit" };
-
 	for (int i = 0, y = 200; i < 3; i++, y += 100)
 	{
 		menu[i].textures = loadFont(options[i], "fonts\\Chava-Regular.ttf", { 255,255,255,255 }, 25);
-		//Меняет цвет если мышка в зоне кнопки
 		if (mouse_x >= menu[i].drawRect.x and mouse_x <= menu[i].drawRect.x + menu[i].drawRect.w and mouse_y >= menu[i].drawRect.y and mouse_y <= menu[i].drawRect.y + menu[i].drawRect.h)
 		{
 			MenuDestroy();
@@ -126,6 +114,4 @@ void drawMenu(int i, int mouse_x, int mouse_y, bool& startgame, bool& startapp, 
 		menu[i].textures.dstrect = menu[i].drawRect;
 		SDL_RenderCopy(ren, menu[i].textures.tex, NULL, &menu[i].textures.dstrect);
 	}
-	
 }
-#pragma endregion

@@ -1,15 +1,11 @@
 #include <iostream>
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
 #include "background.h"
 #include"structs.h"
 #include"initialization.h"
 #include"globalvar.h"
-
-#pragma region BACKGROUND
 
 Background backgrounds;
 
@@ -39,4 +35,3 @@ void ChangedBackground()
 {
 	SDL_RenderCopy(ren, backgrounds.tex, &backgrounds.rect, NULL);
 }
-#pragma endregion

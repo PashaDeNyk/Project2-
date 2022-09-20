@@ -1,17 +1,13 @@
 #include <iostream>
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
 #include "background.h"
 #include"structs.h"
 #include"creeps.h"
 #include"globalVar.h"
 #include"score.h"
 #include"upgrade.h"
-
-#pragma region CREEPS
 
 int Ctt = 0;
 int numCreep = 0;
@@ -23,8 +19,6 @@ void DestructCreeps(int i, Creep* creeps, Score& score, Textures& tex)
 		creeps[i].active = false;
 		creeps[i].xAnim = -100;
 		creeps[i].yAnim = -100;
-		//creeps[i].xWay = -100;
-		//creeps[i].yWay = -100;
 		ScoreUpdate(25, score);
 	}
 }
@@ -32,7 +26,6 @@ void DestructCreeps(int i, Creep* creeps, Score& score, Textures& tex)
 void setCreep(int& max_count_creeps, Creep* creeps)
 {
 	int typeCreep;
-
 	typeCreep = rand() % 2 + 1;
 	if (max_count_creeps < 10)
 	{
@@ -95,7 +88,7 @@ void HealthCreep(int i, Creep* creeps)
 
 void AnimationCreeps(int& curpos, int i, Creep* creeps)
 {
-	int xAnim = creeps[i].xAnim;//Шаг картинки
+	int xAnim = creeps[i].xAnim;
 	if (curpos == 15)
 	{
 		curpos = 0;
@@ -103,7 +96,7 @@ void AnimationCreeps(int& curpos, int i, Creep* creeps)
 	}
 	if (curpos / 5 == 0)
 		xAnim += 75;
-	creeps[i].anim = { xAnim,creeps[i].yAnim,42,84 };//Откуда брать кусочек картинки
+	creeps[i].anim = { xAnim,creeps[i].yAnim,42,84 };
 }
 
 void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creeps, ClickUp& clickUp)
@@ -132,4 +125,3 @@ void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& m
 		DestructCreeps(i, creeps, score, tex);
 	}
 }
-#pragma endregion

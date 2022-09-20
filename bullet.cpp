@@ -13,7 +13,6 @@ int Distance(Creep creep, Tower tower)
 	return sqrt((creep.xWay - tower.spawn.x) * (creep.xWay - tower.spawn.x) + (creep.yWay - tower.spawn.y) * (creep.yWay - tower.spawn.y));
 }
 
-//Отрисовка пули если она активна, если нет то она пропадает за задником
 void WayBullet(Creep& creep, Tower& tower)
 {
 	float angle = atan2(creep.yWay + 21 - tower.bullet.y, creep.xWay + 42 - tower.bullet.x);
@@ -24,10 +23,8 @@ void WayBullet(Creep& creep, Tower& tower)
 	tower.bullet.rect.x = (int)tower.bullet.x;
 	tower.bullet.rect.y = (int)tower.bullet.y;
 
-	//if (Distance(creep, tower) >= tower.dist)
 	if (tower.bullet.x >= creep.xWay and tower.bullet.x <= creep.xWay + 42 and tower.bullet.y >= creep.yWay and tower.bullet.y <= creep.yWay + 84)
 	{
-		//Отнимаем хп у крипа
 		tower.bullet.x = (tower.spawn.x + tower.spawn.w / 2);
 		tower.bullet.y = (tower.spawn.y + tower.spawn.w / 2);
 		creep.health -= tower.damage;
@@ -35,7 +32,6 @@ void WayBullet(Creep& creep, Tower& tower)
 	}
 
 	SDL_RenderCopy(ren, tower.bullet.tex, NULL, &tower.bullet.rect);
-	//Отрисовываем
 }
 
 void CheckDistance(int& timerBullet, int max_count_creeps, Creep* creeps, Tower* towers)
@@ -48,14 +44,10 @@ void CheckDistance(int& timerBullet, int max_count_creeps, Creep* creeps, Tower*
 				if (creeps[i].active)
 				{
 					towers[k].dist = Distance(creeps[i], towers[k]);
-					//printf("%i", towers[k].dist);
-					//system("cls");
 					if (towers[k].dist <= towers[k].range and towers[k].lock == -1)
 					{
-
 						towers[k].lock = i;
 						timerBullet++;
-						//WayBullet(creeps[towers[k].lock], towers[k]);
 					}
 					if (towers[k].lock != -1)
 					{

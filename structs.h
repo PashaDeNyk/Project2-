@@ -50,20 +50,17 @@ struct Bull
 
 struct Tower
 {
-	int index;//for save and load
-
+	int index;
 	SDL_Texture* tex;
 	SDL_Rect anim;
 	SDL_Rect spawn;
-
-	int lock = -1;//lock in enemy
-	int dist;//distance to the creep
-	int damage;//damage bullet
-	int level;//level tower(up damage)
+	int lock = -1;
+	int dist;
+	int damage;
+	int typedamage;
+	int level=1;
 	int range = 300;
-
 	bool active = false;
-
 	Bull bullet;
 };
 

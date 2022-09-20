@@ -1,9 +1,7 @@
 #include <iostream>
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
 #include"structs.h"
 #include"initialization.h"
 #include"background.h"
@@ -11,9 +9,7 @@
 
 SDL_Window* win = NULL;
 SDL_Renderer* ren = NULL;
-
 int win_width = 1280, win_height = 720;
-
 SDL_Rect rect;
 
 void DeInit(int error)

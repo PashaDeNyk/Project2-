@@ -3,7 +3,6 @@
 #include"structs.h"
 #include"menu.h"
 
-
 void ScoreCheck(int point,bool& scoreBuying,Score& score)
 {
 	if (score.point >= point)
@@ -35,4 +34,3 @@ void DrawScore(Score& score)
 {
 	SDL_RenderCopy(ren, score.textures.tex, NULL, &score.drawRect);
 }
-

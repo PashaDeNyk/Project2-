@@ -1,7 +1,6 @@
 #include<iostream>
 #include<SDL.h>
 #include<SDL_image.h>
-
 #include"structs.h"
 #include"background.h"
 #include"globalvar.h"
@@ -9,7 +8,6 @@
 #include"upgrade.h"
 #include"bullet.h"
 
-#pragma region TOWER
 int num = 0;
 
 void CheckLevelTower(int i, Tower* towers)
@@ -40,7 +38,6 @@ void CheckLevelTower(int i, Tower* towers)
 	}
 }
 
-//Чек на занятое место
 void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, Tower* towers, bool& load, int timerBullet, int max_count_creeps, Creep* creeps, bool& scoreBuying, Upgrade* up, Textures& tex, Score& score)
 {
 	for (int i = 0; i < 4; i++)
@@ -51,7 +48,6 @@ void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, boo
 			DrawLevelUpgrade(up);
 			DrawButtonUpgrade(up, tex);
 			ButtonUpgrade(mouse_x, mouse_y, mousebtdown, towers, up, i, score);
-			//Где(поверхность) | Что(Текстура) | Размер чего-то(NULL если не кусочек) | Где появиться что-то(NULL вся поверхность)
 			SDL_RenderCopy(ren, tex.tower, &towers[i].anim, &towers[i].spawn);
 		}
 	}
