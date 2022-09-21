@@ -8,20 +8,28 @@
 #include"globalVar.h"
 #include"score.h"
 #include"upgrade.h"
+#include"healthPlayer.h"
 
 int Ctt = 0;
 int numCreep = 0;
 
-void DestructCreeps(int i, Creep* creeps, Score& score, Textures& tex)
+void DestructCreeps(int i, Creep* creeps, Score& score, Textures& tex,healthPlayer& player)
 {
-	if (creeps[i].health <= 0 and creeps[i].active or creeps[i].xWay > 1280)
+	if (creeps[i].health <= 0 and creeps[i].active)
 	{
 		creeps[i].active = false;
 		creeps[i].xAnim = -100;
 		creeps[i].yAnim = -100;
 		ScoreUpdate(25, score);
 	}
-}
+	else if (creeps[i].xWay > 1300 and creeps[i].active)
+	{
+		creeps[i].active = false;
+		creeps[i].xAnim = -100;
+		creeps[i].yAnim = -100;
+		DamagePlayer(1,player);
+	}
+	}
 
 void setCreep(int& max_count_creeps, Creep* creeps)
 {
@@ -108,7 +116,7 @@ void ClickCreep(int i, int mouse_x, int mouse_y, bool& mousebtdown, Creep* creep
 	}
 }
 
-void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& max_count_creeps, Creep* creeps, ClickUp& clickUp, Textures& tex, Score& score)
+void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& max_count_creeps, Creep* creeps, ClickUp& clickUp, Textures& tex, Score& score,healthPlayer& player)
 {
 	for (int i = 0; i < max_count_creeps; i++)
 	{
@@ -122,6 +130,6 @@ void DrawCreeps(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& m
 		ButtonClickUpgrade(mouse_x, mouse_y, mousebtdown, clickUp, score);
 		ClickCreep(i, mouse_x, mouse_y, mousebtdown, creeps, clickUp);
 		SDL_RenderCopy(ren, tex.creep, &creeps[i].anim, &spawn);
-		DestructCreeps(i, creeps, score, tex);
+		DestructCreeps(i, creeps, score, tex,player);
 	}
 }

@@ -1,9 +1,7 @@
 #include <iostream>
-
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-
 #include"structs.h"
 #include "background.h"
 #include"creeps.h"
@@ -11,12 +9,12 @@
 #include"globalvar.h"
 #include"tower.h"
 #include"menu.h"
-
 #include"save_and_load.h"
 #include"score.h"
 #include"shop.h"
 #include"bullet.h"
 #include"upgrade.h"
+#include"healthPlayer.h"
 
 void MissClicks(bool& mousebtdown)
 {
@@ -26,11 +24,11 @@ void MissClicks(bool& mousebtdown)
 	}
 }
 
-void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, int& max_count_creeps, int& timerBullet, Creep* creeps, Tower* towers, bool& load, bool scoreBuying, Upgrade* up, ClickUp& clickUp, Textures& tex, Score& score)
+void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTower, bool& checkSpawn1, bool& checkSpawn2, bool& checkSpawn3, bool& checkSpawn4, int& max_count_creeps, int& timerBullet, Creep* creeps, Tower* towers, bool& load, bool scoreBuying, Upgrade* up, ClickUp& clickUp, Textures& tex, Score& score,healthPlayer& player)
 {
 	ChangedBackground();
 	DrawTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, timerBullet, max_count_creeps, creeps, scoreBuying, up, tex,score);
-	DrawCreeps(curpos, mouse_x, mouse_y, mousebtdown, max_count_creeps, creeps, clickUp, tex,score);
+	DrawCreeps(curpos, mouse_x, mouse_y, mousebtdown, max_count_creeps, creeps, clickUp, tex,score,player);
 	CheckDistance(timerBullet, max_count_creeps, creeps, towers);
 	DrawScore(score);
 	DrawShop(tex);
@@ -38,6 +36,7 @@ void Draw(int& curpos, int mouse_x, int mouse_y, bool& mousebtdown, int& countTo
 	buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up,tex);
 	DrawButtonClickUpgrade(clickUp);
 	DrawLevelClickUpgrade(clickUp);
+	DrawHealth(player);
 	SDL_RenderPresent(ren);
 	MissClicks(mousebtdown);
 	SDL_Delay(1000 / 60);
@@ -55,6 +54,7 @@ int main(int argc, char* argv[])
 	ClickUp clickUp;
 	Score score;
 	Textures tex;
+	healthPlayer player;
 
 	initTowerTextures("images/Tower.png", tex);
 	initCreepTextures("images/creepsbg.png", tex);
@@ -64,6 +64,7 @@ int main(int argc, char* argv[])
 	initBulletTextures("images/cannonball.png", towers[i].bullet);
 	initPrice();
 	initClickUpgrade(clickUp);
+	initHealth(player);
 
 	int tt = 59;
 	int mouse_x = 0, mouse_y = 0;
@@ -158,16 +159,18 @@ int main(int argc, char* argv[])
 				}
 				case SDL_SCANCODE_F5:
 				{
-					SaveBin(towers,score);
+					SaveBin(towers,score,player,clickUp);
 					break;
 				}
 				case SDL_SCANCODE_F6:
 				{
 					load = true;
-					LoadBin(towers,score);
+					LoadBin(towers,score,player, clickUp);
 					ScoreUpdate(point, score);
+					UpdateHealth(player);
 					LoadTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up, tex);
 					UpdateUpgrade(i, towers, up);
+					UpdateClickUpgrade(clickUp);
 					break;
 				}
 				}
@@ -212,7 +215,7 @@ int main(int argc, char* argv[])
 			if (tt % 60 == 0)
 				setCreep(max_count_creeps, creeps);
 
-			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, clickUp, tex,score);
+			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, clickUp, tex,score, player);
 		}
 
 	}

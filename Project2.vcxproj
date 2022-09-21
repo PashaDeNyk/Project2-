@@ -135,6 +135,7 @@
     <ClCompile Include="background.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="creeps.cpp" />
+    <ClCompile Include="healthPlayer.cpp" />
     <ClCompile Include="initialization.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menu.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="creeps.h" />
     <ClInclude Include="globalvar.h" />
+    <ClInclude Include="healthPlayer.h" />
     <ClInclude Include="initialization.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="save_and_load.h" />

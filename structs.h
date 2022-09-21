@@ -122,3 +122,10 @@ struct ClickUp
 	int level;
 	int damage;
 };
+
+struct healthPlayer
+{
+	Texture textures;
+	SDL_Rect drawRect;
+	int health = 10;
+};
