@@ -1,7 +1,6 @@
 #include<iostream>
 #include"structs.h"
 
-//Сохранение в бинарный файл
 void SaveBin(Tower* towers, Score& score, healthPlayer& player, ClickUp& clickUp)
 {
 	FILE* f;
@@ -20,7 +19,6 @@ void SaveBin(Tower* towers, Score& score, healthPlayer& player, ClickUp& clickUp
 	fclose(f);
 }
 
-//Загрузка из бинарного файла
 void LoadBin(Tower* towers, Score& score,healthPlayer& player, ClickUp& clickUp)
 {
 	FILE* f;

@@ -115,3 +115,24 @@ void drawMenu(int i, int mouse_x, int mouse_y, bool& startgame, bool& startapp, 
 		SDL_RenderCopy(ren, menu[i].textures.tex, NULL, &menu[i].textures.dstrect);
 	}
 }
+
+//struct gameOver
+//{
+//	Texture textures;
+//	SDL_Rect drawRect;
+//};
+//
+//gameOver over;
+//
+//void GameOver()
+//{
+//	ChangedBackground();
+//	over.textures = loadFont("GAME OVER", "fonts\\Chava-Regular.ttf", {255,255,255,255}, 25);
+//	over.drawRect.y = (720-over.drawRect.y)/2;
+//	over.drawRect.w = over.textures.dstrect.w;
+//	over.drawRect.h = over.textures.dstrect.h;
+//	over.drawRect.x = (1280 - over.drawRect.w) / 2;
+//	over.textures.dstrect = over.drawRect;
+//	SDL_RenderCopy(ren, over.textures.tex, NULL, &over.drawRect);
+//	SDL_RenderPresent(ren);
+//}

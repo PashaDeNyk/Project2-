@@ -134,29 +134,6 @@ int main(int argc, char* argv[])
 					break;
 				}
 				break;
-				case SDL_SCANCODE_F1:
-				{
-					startapp = true;
-					bgmenu = true;
-					break;
-				}
-				case SDL_SCANCODE_F2:
-				{
-					startapp = false;
-					break;
-				}
-				case SDL_SCANCODE_F3:
-				{
-					startgame = true;
-					startapp = false;
-					bgcreeps = true;
-					break;
-				}
-				case SDL_SCANCODE_F4:
-				{
-					startgame = false;
-					break;
-				}
 				case SDL_SCANCODE_F5:
 				{
 					SaveBin(towers,score,player,clickUp);
@@ -176,7 +153,6 @@ int main(int argc, char* argv[])
 				}
 			}
 		}
-
 		if (startapp)
 		{
 			if (bgmenu)
@@ -189,7 +165,6 @@ int main(int argc, char* argv[])
 			MenuDestroy();
 			SDL_RenderPresent(ren);
 		}
-
 		if (startInfo)
 		{
 			if (startapp)
@@ -199,29 +174,23 @@ int main(int argc, char* argv[])
 			}
 			getInfo();
 		}
-
 		if (startgame)
 		{
 			if (startapp)
 				startapp = false;
-
 			if (bgcreeps)
 			{
 				initBackgroundsTextures("images/bg.jpg");
 				bgcreeps = false;
 			}
-
 			tt++;
 			if (tt % 60 == 0)
 				setCreep(max_count_creeps, creeps);
-
 			Draw(anpos, mouse_x, mouse_y, mousebtdown, countTower, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, max_count_creeps, timerBullet, creeps, towers, load, scoreBuying, up, clickUp, tex,score, player);
 		}
 
 	}
-
 	TTF_CloseFont(0);
-
 	DeInit(0);
 	SDL_Quit();
 	return 0;

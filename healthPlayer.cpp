@@ -2,6 +2,8 @@
 #include"globalvar.h"
 #include"structs.h"
 #include"menu.h"
+#include"background.h"
+#include"menu.h"
 
 void initHealth(healthPlayer& player)
 {
@@ -27,7 +29,11 @@ void DamagePlayer(int damage, healthPlayer& player)
 		UpdateHealth(player);
 	}
 	else if (player.health == 0)
+	{
+		//initBackgroundsTextures("images/bgmenu.jpg");
+		//GameOver();
 		SDL_Quit();
+	}
 }
 
 void DrawHealth(healthPlayer& player)
