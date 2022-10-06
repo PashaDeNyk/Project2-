@@ -186,26 +186,7 @@ void LoadTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, boo
 			break;
 			}
 
-			switch (typeT)
-			{
-			case 1:
-			{
-				buyType = 1;
-				break;
-			}
-			case 2:
-			{
-				buyType = 2;
-				break;
-			}
-			case 3:
-			{
-				buyType = 3;
-				break;
-			}
-			break;
-			}
-			setTypeTower(buyType, i, towers);
+			setTypeTower(typeT, i, towers);
 			buildTower(mouse_x, mouse_y, countTower, mousebtdown, checkSpawn1, checkSpawn2, checkSpawn3, checkSpawn4, towers, load, up, tex);
 			spawn = 0;
 		}
