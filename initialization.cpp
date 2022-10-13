@@ -51,7 +51,7 @@ void Init()
 	}
 
 	win = SDL_CreateWindow("Just Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		win_width, win_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+		win_width, win_height, SDL_WINDOW_SHOWN);
 	if (win == NULL)
 	{
 		printf("win: %s", SDL_GetError());
