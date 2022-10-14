@@ -28,10 +28,8 @@ void DamagePlayer(int damage, healthPlayer& player)
 		player.health -= damage;
 		UpdateHealth(player);
 	}
-	else if (player.health == 0)
+	else if (player.health <= 0)
 	{
-		//initBackgroundsTextures("images/bgmenu.jpg");
-		//GameOver();
 		SDL_Quit();
 	}
 }

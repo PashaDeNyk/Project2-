@@ -2,6 +2,8 @@
 #include"structs.h"
 #include"globalvar.h"
 #include"background.h"
+#include"score.h"
+#include"healthPlayer.h"
 
 void initBulletTextures(const char filename[], Bull& shot)
 {
@@ -23,12 +25,14 @@ void WayBullet(Creep& creep, Tower& tower)
 	tower.bullet.rect.x = (int)tower.bullet.x;
 	tower.bullet.rect.y = (int)tower.bullet.y;
 
-	if (tower.bullet.x >= creep.xWay and tower.bullet.x <= creep.xWay + 42 and tower.bullet.y >= creep.yWay and tower.bullet.y <= creep.yWay + 84)
+	if (creep.health <= 0)
+		tower.lock = -1;
+
+	if (tower.lock!=-1 and tower.bullet.x >= creep.xWay and tower.bullet.x <= creep.xWay + 42 and tower.bullet.y >= creep.yWay and tower.bullet.y <= creep.yWay + 84)
 	{
 		tower.bullet.x = (tower.spawn.x + tower.spawn.w / 2);
 		tower.bullet.y = (tower.spawn.y + tower.spawn.w / 2);
 		creep.health -= tower.damage;
-		tower.lock = -1;
 	}
 
 	SDL_RenderCopy(ren, tower.bullet.tex, NULL, &tower.bullet.rect);

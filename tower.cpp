@@ -44,7 +44,7 @@ void DrawTower(int mouse_x, int mouse_y, int& countTower, bool& mousebtdown, boo
 	{
 		if (towers[i].active)
 		{
-			CheckDistance(timerBullet, max_count_creeps, creeps, towers);
+			//CheckDistance(timerBullet, max_count_creeps, creeps, towers);
 			DrawLevelUpgrade(up);
 			DrawButtonUpgrade(up, tex);
 			ButtonUpgrade(mouse_x, mouse_y, mousebtdown, towers, up, i, score);

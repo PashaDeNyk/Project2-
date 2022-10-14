@@ -29,7 +29,7 @@ void DestructCreeps(int i, Creep* creeps, Score& score, Textures& tex,healthPlay
 		creeps[i].yAnim = -100;
 		DamagePlayer(1,player);
 	}
-	}
+}
 
 void setCreep(int& max_count_creeps, Creep* creeps)
 {

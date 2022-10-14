@@ -1,8 +1,5 @@
-﻿  shop.cpp
-W:\Курсач Прога\Project2 — копия\shop.cpp(47,60): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-W:\Курсач Прога\Project2 — копия\shop.cpp(48,60): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-W:\Курсач Прога\Project2 — копия\shop.cpp(58,60): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-W:\Курсач Прога\Project2 — копия\shop.cpp(59,60): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-W:\Курсач Прога\Project2 — копия\shop.cpp(69,60): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-W:\Курсач Прога\Project2 — копия\shop.cpp(70,60): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+﻿  bullet.cpp
+W:\Курсач Прога\Project2 — копия\bullet.cpp(15,13): warning C4244: return: преобразование "double" в "int", возможна потеря данных
+W:\Курсач Прога\Project2 — копия\bullet.cpp(33,35): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+W:\Курсач Прога\Project2 — копия\bullet.cpp(34,35): warning C4244: =: преобразование "int" в "float", возможна потеря данных
   Project2.vcxproj -> W:\Курсач Прога\Project2 — копия\x64\Debug\Project2.exe
