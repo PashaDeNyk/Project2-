@@ -52,10 +52,12 @@ void CheckDistance(int& timerBullet, int max_count_creeps, Creep* creeps, Tower*
 					{
 						towers[k].lock = i;
 						timerBullet++;
+                                                break;
 					}
 					if (towers[k].lock != -1)
 					{
 						WayBullet(creeps[towers[k].lock], towers[k]);
+                                                break;
 					}
 				}
 			}
